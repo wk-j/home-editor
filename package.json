@@ -2,24 +2,16 @@
   "name": "home-editor",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/main.js",
+  "main": "src/main.js",
   "scripts": {
     "watch": "tsc --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/react": "^16.0.5",
-    "@types/react-dom": "^15.5.4",
-    "awesome-typescript-loader": "^3.2.3",
-    "copy-webpack-plugin": "^4.0.1",
-    "electron": "^1.7.5",
-    "monaco-editor": "^0.10.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-monaco-editor": "^0.10.0",
-    "source-map-loader": "^0.2.1",
-    "typescript": "^2.4.2"
+    "electron": "^1.7.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "monaco-editor": "^0.10.0"
+  }
 }

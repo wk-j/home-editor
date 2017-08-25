@@ -1,0 +1,15 @@
+{
+  "name": "home-editor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "watch": "tsc --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^1.7.5",
+    "typescript": "^2.4.2"
+  }
+}

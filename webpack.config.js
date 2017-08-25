@@ -1,3 +1,5 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
     target: "electron",
     node: {
@@ -5,8 +7,8 @@ module.exports = {
         __filename: false,
     },
     entry: {
-        render : "./src/render/app.tsx",
-        main : "./src/main.ts"
+        render: "./src/render/app.tsx",
+        main: "./src/main.ts"
     },
     output: {
         filename: "[name].js",
@@ -30,6 +32,15 @@ module.exports = {
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ]
     },
+
+    plugins: [
+        new CopyWebpackPlugin([
+            {
+                from: 'node_modules/monaco-editor/min/vs',
+                to: 'vs',
+            }
+        ])
+    ],
 
     // When importing a module whose path matches one of the following, just
     // assume a corresponding global variable exists and use that instead.

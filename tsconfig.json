@@ -4,7 +4,8 @@
         "module": "commonjs",
         "target": "es5",
         "jsx": "react",
-        "noImplicitAny": true
+        "allowJs": true,
+        "noImplicitAny": false
     },
     "exclude": [
         "node_modules"

@@ -11,5 +11,8 @@
   "devDependencies": {
     "electron": "^1.7.5",
     "typescript": "^2.4.2"
+  },
+  "dependencies": {
+    "monaco-editor": "^0.10.0"
   }
 }

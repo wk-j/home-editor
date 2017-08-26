@@ -1,43 +1,61 @@
-import Ace, { EditSession, UndoManager } from 'ace';
-
 import * as ReactDOM from "react-dom";
 import * as React from "react";
 import { TreeExample } from "./tree";
 
-function init(editor) {
-    editor.setTheme("ace/theme/gob");
-    editor.setHighlightActiveLine(true);
-    editor.setHighlightSelectedWord(true);
-    editor.setShowInvisibles(false);
+import AceEditor from "react-ace";
+import brace from "brace";
+
+import "brace/mode/javascript";
+import "brace/theme/github";
+import "photonkit/dist/css/photon.css"
+
+export class Editor extends React.Component {
+    render() {
+        let style = {
+            width: "100%",
+            height: "100%"
+        };
+        return (
+            <div style={style}>
+                <AceEditor ref="aceEditor" mode="javascript" theme="github"/>
+            </div>
+        );
+    }
 }
 
-function setEditorTitle(text) {
-    document.title = text;
+export class App extends React.Component {
+    render() {
+        return (
+            <div className="window">
+                
+            <header className="toolbar toolbar-header">
+                <div className="toolbar-actions">
+                    <button className="btn btn-default pull-right">
+                        <span className="icon icon-home"></span>
+                    </button>
+                    <button className="btn btn-default pull-right">
+                        <span className="icon icon-folder"></span>
+                    </button>
+                </div>
+            </header>
+
+                <div className="window-content">
+                    <div className="pane-group"> 
+                        <div className="pane">
+                            <Editor />
+                        </div>
+                        <div className="pane-sm sidebar">
+                                <TreeExample/>
+                        </div>
+                    </div>
+                </div>
+                <footer className="toolbar toolbar-footer">
+                    <h1 className="title"></h1>
+                </footer>
+            </div>
+        );
+    }
 }
-
-function setVim(editor) {
-    //var vim = require("ace/keyboard/vim").handler;
-    editor.setKeyboardHandler("ace/keyboard/vim");
-}
-
-function setText(editor, text, mode) {
-    editor.session.setMode(mode);
-    editor.setValue(text);
-}
-
-function main() {
-    var JavaScriptMode = Ace.require("ace/mode/javascript").Mode;
-    var CSharpMode = Ace.require("ace/mode/csharp").Mode;
-    var vim = Ace.require("vim");
-    var editor = Ace.edit("editor");
-    init(editor);
-
-    setText(editor, "Hello, world", new CSharpMode());
-    setEditorTitle("Home");
-    setVim(editor);
-}
-
-main();
 
 const content = document.getElementById("content");
-ReactDOM.render(<TreeExample/>, content);
+ReactDOM.render(<App/>, content);

@@ -1,5 +1,9 @@
 import Ace, { EditSession, UndoManager } from 'ace';
 
+import * as ReactDOM from "react-dom";
+import * as React from "react";
+import { TreeExample } from "./tree";
+
 function init(editor) {
     editor.setTheme("ace/theme/gob");
     editor.setHighlightActiveLine(true);
@@ -34,3 +38,6 @@ function main() {
 }
 
 main();
+
+const content = document.getElementById("content");
+ReactDOM.render(<TreeExample/>, content);

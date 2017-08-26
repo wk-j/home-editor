@@ -10,11 +10,18 @@
   "license": "ISC",
   "devDependencies": {
     "@types/electron": "^1.6.10",
-    "electron": "^1.7.5"
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "electron": "^1.7.5",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "dependencies": {
     "ace": "^1.3.0",
     "ace-builds": "^1.2.8",
-    "monaco-editor": "^0.10.0"
+    "monaco-editor": "^0.10.0",
+    "react-treebeard": "^2.0.3"
   }
 }

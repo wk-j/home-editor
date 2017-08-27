@@ -19,6 +19,5 @@ export class HomeTree extends React.Component {
     }
 }
 
-ReactDOM.render(<HomeTree />, document.getElementById("home-tree"));
-
-var home = new HomeEditor("home-editor");
+//ReactDOM.render(<HomeTree />, document.getElementById("home-tree"));
+var home = new HomeEditor("home-editor", "/Users/wk/Source/home-editor/README.md");

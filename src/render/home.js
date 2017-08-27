@@ -1,20 +1,27 @@
 import Ace, { EditSession, UndoManager } from 'ace';
 const fs = require("fs");
 
+const JavaScriptMode = Ace.require("ace/mode/javascript").Mode;
+const CSharpMode = Ace.require("ace/mode/csharp").Mode;
+const MarkdownMode = Ace.require("ace/mode/markdown").Mode;
+
 export class HomeEditor {
-
-    constructor(div, file) {
+    constructor(div) {
         var editor = Ace.edit(div);
-        var JavaScriptMode = Ace.require("ace/mode/javascript").Mode;
-        var CSharpMode = Ace.require("ace/mode/csharp").Mode;
-
-        this.file = file;
 
         this.initialize(editor);
         this.setEditorTitle("Home");
         this.setVim(editor);
         this.registerEvents(editor);
 
+        this.editor = editor;
+    }
+    getEditor() {
+        return this.editor;
+    }
+
+    editFile(editor, file) {
+        this.file = file;
         if (file) {
             if (fs.existsSync(file)) {
                 var content = fs.readFileSync(file, "utf8");

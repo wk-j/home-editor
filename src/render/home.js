@@ -33,18 +33,21 @@ export class HomeEditor {
             name: 'save',
             bindKey: { win: 'Ctrl-S', mac: 'Command-S' },
             exec: (editor) => {
-                let value = editor.getValue();
-                fs.writeFile(this.file, value, (err) => {
-                    if(err) {
-                        this.setEditorTitle(err);
-                        console.log(err);
-                    }else {
-                        this.setEditorTitle("save");
-                    }
-                })
+                if(file) this.save(editor);
             },
             readOnly: false // false if this command should not apply in readOnly mode
         });
+    }
+
+    save(editor) {
+        let value = editor.getValue();
+        fs.writeFile(this.file, value, (err) => {
+            if(err) {
+                console.log(err);
+            }else {
+                this.setEditorTitle("save");
+            }
+        })
     }
 
     initialize(editor) {
@@ -58,10 +61,9 @@ export class HomeEditor {
         let el = document.getElementById("status-icon")
         if(el) {
             if(text === "*")
-                el.setAttribute("class", "icon icon-github");
-            else {
+                el.setAttribute("class", "icon icon-pencil");
+            else 
                 el.setAttribute("class", "icon icon-home");
-            }
         }
     }
 

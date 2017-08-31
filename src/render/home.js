@@ -1,31 +1,44 @@
 import Ace, { EditSession, UndoManager } from 'ace';
-const fs = require("fs");
+import { getCurrentDir, getArgs } from "./utility";
 
-const JavaScriptMode = Ace.require("ace/mode/javascript").Mode;
-const CSharpMode = Ace.require("ace/mode/csharp").Mode;
-const MarkdownMode = Ace.require("ace/mode/markdown").Mode;
+const fs = require("fs");
 
 export class HomeEditor {
     constructor(div) {
         var editor = Ace.edit(div);
-
         this.initialize(editor);
         this.setEditorTitle("Home");
         this.setVim(editor);
         this.registerEvents(editor);
-
         this.editor = editor;
     }
+
+    getMode(file) {
+        let ext = file.split('.').pop();
+        if (ext == "cs" || ext == "csx")  
+            return Ace.require("ace/mode/csharp").Mode;
+        else if (ext == "fs" || ext == "fsx")
+            return Ace.require("ace/mode/csharp").Mode;
+        else if (ext == "js" || ext == "jsx")
+            return Ace.require("ace/mode/javascript").Mode;
+        else if (ext == "properties")
+            return Ace.require("ace/mode/properties").Mode;
+        else
+            return Ace.require("ace/mode/markdown").Mode;
+    }
+
     getEditor() {
         return this.editor;
     }
 
     editFile(editor, file) {
-        this.file = file;
         if (file) {
+            this.file = file;
+            let Mode = this.getMode(file);
+            
             if (fs.existsSync(file)) {
                 var content = fs.readFileSync(file, "utf8");
-                this.setText(editor, content, new CSharpMode());
+                this.setText(editor, content, new Mode());
 
                 let session = editor.getSession()
                 session.on("change", () => {
@@ -40,7 +53,7 @@ export class HomeEditor {
             name: 'save',
             bindKey: { win: 'Ctrl-S', mac: 'Command-S' },
             exec: (editor) => {
-                if(file) this.save(editor);
+                if(this.file) this.save(editor);
             },
             readOnly: false // false if this command should not apply in readOnly mode
         });

@@ -1,14 +1,11 @@
 const sh = require("shelljs");
 
-export class Utility {
-    getArgs() {
-        var args = process.argv.splice(process.execArgv.length + 2);
-        console.log(args);
-        console.log(process.argv);
-    }
+export function getArgs() {
+    var args = process.argv.splice(process.execArgv.length + 2);
+    return args;
+}
 
-    getCurrentDir() {
-        var cwd = sh.pwd();
-        console.log(cwd + "");
-    }
+export function getCurrentDir() {
+    var cwd = sh.pwd();
+    return cwd + "";
 }

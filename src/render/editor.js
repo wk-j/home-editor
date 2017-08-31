@@ -3,12 +3,6 @@ import * as React from "react";
 import { TreeExample } from "./tree";
 import { HomeEditor } from "./home";
 
-//import AceEditor from "react-ace";
-//import brace from "brace";
-
-//import "brace/mode/javascript";
-//import "brace/theme/github";
-
 import "photonkit/dist/css/photon.css"
 
 export class HomeTree extends React.Component {

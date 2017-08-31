@@ -29,7 +29,6 @@
     "ace": "^1.3.0",
     "ace-builds": "^1.2.8",
     "monaco-editor": "^0.10.0",
-    "react-treebeard": "^2.0.3",
     "shelljs": "^0.7.8"
   }
 }

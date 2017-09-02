@@ -8,8 +8,12 @@ import "semantic-ui-css/semantic.css";
 
 export class HomeTree extends React.Component {
     render() {
+        let files = [
+            { fullName: "full1.js", name: "name1.js" },
+            { fullName: "full2.js", name: "name2.js" },
+        ];
         return (
-            <Item/>
+            <Item files={files}/>
         );
     }
 }

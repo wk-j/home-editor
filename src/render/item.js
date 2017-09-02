@@ -1,31 +1,39 @@
 import * as React from "react";
+import image from "../images/matthew.png";
 
 export class Item extends React.Component {
 
     render() {
-        let red = { color: "#fc605b" };
-        let orange = { color: "#fdbc40" };
-        let green = { color: "#34c84a" };
-        let blue = { color: "#57acf5" };
+        let list = { padding: "5px" };
 
         return (
-            <nav className="nav-group">
-                <span className="nav-group-item">
+
+        <div className="ui middle aligned selection list">
+            <div className="item">
+              <img className="ui avatar image" src={image}/>
+              <div className="content">
+                <div className="header">
                     package-lock.json
-                </span>
-                <span className="nav-group-item">
-                    package.json
-                </span>
-                <span className="nav-group-item">
-                    README.md
-                </span>
-                <span className="nav-group-item">
-                    tsconfig.json
-                </span>
-                <span className="nav-group-item">
+                </div>
+              </div>
+            </div>
+            <div className="item">
+              <img className="ui avatar image" src={image}/>
+              <div className="content">
+                <div className="header">
                     webpack.config.js
-                </span>
-            </nav>
+                </div>
+              </div>
+            </div>
+            <div className="item">
+              <img className="ui avatar image" src={image}/>
+              <div className="content">
+                <div className="header">
+                    package.json
+                </div>
+              </div>
+            </div>
+          </div>
         );
     }
 }

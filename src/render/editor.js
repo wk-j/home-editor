@@ -3,7 +3,8 @@ import * as React from "react";
 import { Item } from "./item";
 import { HomeEditor } from "./home";
 
-import "photonkit/dist/css/photon.css"
+import "photonkit/dist/css/photon.css";
+import "semantic-ui-css/semantic.css";
 
 export class HomeTree extends React.Component {
     render() {

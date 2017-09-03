@@ -1,21 +1,12 @@
 import * as ReactDOM from "react-dom";
 import * as React from "react";
-import { Item } from "./item";
+import { Item, HomeTree } from "./components";
 import { HomeEditor } from "./home";
-// import * as glob from "glob";
 import { getCurrentDir } from "./utility";
 const glob = require("glob");
 
 import "photonkit/dist/css/photon.css";
 import "semantic-ui-css/semantic.css";
-
-export class HomeTree extends React.Component {
-    render() {
-        return (
-            <Item files={this.props.files}/>
-        );
-    }
-}
 
 let files = [
     { fullName: "full1.js", name: "name1.js", content: "", saved: true },
@@ -25,14 +16,20 @@ let files = [
 let options = {
     cwd: getCurrentDir(),
     ignore: [
-        "node_modules",
-        "packages"
-    ]
+        "**/node_modules/**/*.*",
+        "**/packages/**/*.*"
+    ],
+    absolute: true,
+    nodir: true
 };
 
-glob("**/*.json", options, function (er, files) {
-    console.log(files);
-})
+function getFiles() {
+    glob("**/*.json", options, (err, files) => {
+        if (!err) {
+            console.log(files);
+        }
+    });
+}
 
 ReactDOM.render(<HomeTree files={files}/>, document.getElementById("home-tree"));
 

@@ -2,6 +2,14 @@ import * as React from "react";
 import * as path from "path";
 import image from "../images/matthew.png";
 
+export class HomeTree extends React.Component {
+  render() {
+      return (
+          <Item files={this.props.files}/>
+      );
+  }
+}
+
 export class HomeFile extends React.Component {
   render() {
     return (

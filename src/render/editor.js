@@ -3,15 +3,24 @@ import * as React from "react";
 import { Item, HomeTree } from "./components";
 import { HomeEditor } from "./home";
 import { getCurrentDir } from "./utility";
+import { observable } from "mobx-react";
 const glob = require("glob");
 
 import "photonkit/dist/css/photon.css";
 import "semantic-ui-css/semantic.css";
 
+export class Model {
+    @observable
+    files = []
+}
+
+/*
 let files = [
     { fullName: "full1.js", name: "name1.js", content: "", saved: true },
     { fullName: "full2.js", name: "name2.js", content: "", saved: true },
 ];
+*/
+
 
 let options = {
     cwd: getCurrentDir(),

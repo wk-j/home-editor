@@ -6,7 +6,7 @@ module.exports = {
     entry: 
     {
         main: "./src/main.js",
-        render: "./src/render/editor.js"
+        render: "./src/render/index.js"
     },
     output: {
         path: __dirname + "/dist",

@@ -2,65 +2,78 @@ import * as React from "react";
 import * as path from "path";
 import { getFiles, getCurrentDir } from "./utility";
 import image from "../images/matthew.png";
-import {observer} from "mobx-react";
+import { observer } from "mobx-react";
+
+import "semantic-ui-css/semantic.css";
 
 @observer
 export class HomeTree extends React.Component {
-  constructor() {
-    super();
 
-    let options = {
-      cwd: getCurrentDir(),
-      ignore: [
-        "node_modules/**/*.*",
-        "packages/**/*.*"
-      ],
-      absolute: true,
-      nodir: true
-    };
-
-    getFiles(options, files => {
-      console.log(files);
-      this.props.model.files = files;
-    });
+  getStructure() {
+    return this.props.model.structure;
   }
 
-  render() {
-    console.log(this.props.model.count);
+  getPath() {
+    return this.props.model.path;
+  }
+
+  file(item) {
     return (
-      <Item files={this.props.model.files} count={this.props.model.count} />
+      <div className="item" key={item.fullName}>
+        <i className="spotify icon"></i>
+        <div className="content">
+          <div className="header">{item.name}</div>
+          {/* <div className="description">Config file for setting packaged themes</div> */}
+        </div>
+      </div>
     );
   }
-}
 
-export class HomeFile extends React.Component {
-  render() {
+  folder(str) {
     return (
-      <div className="item" key={this.props.fullName}>
+      <div className="item" key={str.fullName}>
+        <i className="cube icon"></i>
         <div className="content">
-          <div className="header">
-            {this.props.file.name}
+          <div className="header">{str.name}</div>
+          <div className="list">
+            {str.files.map(x => this.file(x))}
+            {str.folders.map(x => this.folder(x))}
           </div>
         </div>
       </div>
     );
   }
-}
 
-export class Item extends React.Component {
-
-  showCount() {
-    console.log(this.props.count);
+  handleChange(event) {
+    var value = event.target.value;
+    this.props.model.setPath(value);
   }
 
   render() {
-    let list = { padding: "5px" };
+
+    let str = this.getStructure();
+    let path = this.getPath();
+
+    let mainStyle = {
+      overflow: "scroll"
+    }
+
     return (
-      <div className="ui middle aligned selection list">
-        {
-          this.props.files.map(file => <HomeFile file={file} key={file.fullName} />)
-        }
+      <div className="basi setgment" style={mainStyle}>
+      <div className="ui list">
+        <div className="item">
+          <i className="cube icon"></i>
+          <div className="content">
+            <div className="header">{str.name}</div>
+            <div className="list">
+              {str.files.map(x => this.file(x))}
+              {str.folders.map(x => this.folder(x))}
+            </div>
+          </div>
+        </div>
+      </div>
       </div>
     );
   }
+
 }

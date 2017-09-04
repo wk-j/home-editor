@@ -5,6 +5,10 @@
         "stage-0"
     ],
     "plugins": [
-        "transform-decorators-legacy" /* should always be the first plugin! */
+        "transform-decorators-legacy" /* should always be the first plugin! */,
+        ["transform-runtime", {
+            "polyfill": false,
+            "regenerator": true
+        }]
     ]
 }

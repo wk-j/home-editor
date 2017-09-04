@@ -1,3 +1,11 @@
 .nav-group-item .icon  {
     float: none;
 }
+
+html {
+    overflow: "hidden"
+}
+
+body {
+    overflow: "hidden"
+}

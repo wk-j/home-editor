@@ -6,6 +6,9 @@ import { getCurrentDir, startBackend } from "./utility";
 import { observable, computed, action } from "mobx";
 import { getStructures } from "./api";
 
+import "semantic-ui-css/semantic.css";
+import "../style.css";
+
 startBackend();
 
 export class Structure {

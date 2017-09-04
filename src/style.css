@@ -1,11 +1,11 @@
-.nav-group-item .icon  {
-    float: none;
+::-webkit-scrollbar { 
+    display: none; 
 }
 
-html {
-    overflow: "hidden"
+html { 
+    padding:0;
 }
 
 body {
-    overflow: "hidden"
+    padding:0;
 }

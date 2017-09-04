@@ -4,8 +4,6 @@ import { getFiles, getCurrentDir } from "./utility";
 import image from "../images/matthew.png";
 import { observer } from "mobx-react";
 
-import "semantic-ui-css/semantic.css";
-
 @observer
 export class HomeTree extends React.Component {
 
@@ -23,7 +21,6 @@ export class HomeTree extends React.Component {
         <i className="spotify icon"></i>
         <div className="content">
           <div className="header">{item.name}</div>
-          {/* <div className="description">Config file for setting packaged themes</div> */}
         </div>
       </div>
     );
@@ -55,11 +52,11 @@ export class HomeTree extends React.Component {
     let path = this.getPath();
 
     let mainStyle = {
-      overflow: "scroll"
+      overflowX: "scroll",
+      overflowY: "scroll"
     }
 
     return (
-      <div className="basi setgment" style={mainStyle}>
       <div className="ui list">
         <div className="item">
           <i className="cube icon"></i>
@@ -71,7 +68,6 @@ export class HomeTree extends React.Component {
             </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }

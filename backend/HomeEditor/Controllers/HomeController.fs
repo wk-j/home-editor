@@ -26,21 +26,55 @@ type Folder() =
 type HomeController () =
     inherit Controller()
 
+    let notMatchName(info: DirectoryInfo) = 
+        let names = [
+            ".git"
+            "node_modules"
+            "bin"
+            "obj"
+        ]
+
+        names.All(fun x -> info.Name.Contains(x) |> not)
+
     let rec query (str: Folder) path = 
         let dir = DirectoryInfo path
         let dirs = 
             dir.GetDirectories() 
-            |> Array.filter(fun x -> x.Name <> "node_modules")
-            |> Array.filter(fun x -> x.Name <> "packages")
-            |> Array.filter(fun x -> x.Name <> ".git")
+            |> Array.filter(notMatchName)
+
+        let matchName (info: FileInfo) = 
+            let format = [
+                ".json"
+                ".js"
+                ".html"
+                ".ts"
+                ".cs"
+                ".fs"
+                ".fsproj"
+                ".css"
+            ]
+
+            format.Any(fun x -> info.Name.Contains(x))
+        
+        let notMatchFileName(info: FileInfo) = 
+            let names = [
+                ".map"
+                ".exe"
+                ".pdf"
+                ".DS_Store"
+            ]
+
+            names.All(fun x -> info.Name.Contains(x) |> not)
 
         let files  = 
             dir.GetFiles()
-            |> Array.filter(fun x -> x.Name <> ".DS_Store")
+            |> Array.filter(notMatchFileName)
+            |> Array.filter(matchName)
 
         str.Folders <- 
             [ for item in dirs do
                 yield query (Folder()) item.FullName ]
+            |> List.filter(fun x -> x.Files.Count() > 0 || x.Folders.Count() > 0)
 
         str.Name <- dir.Name
         str.FullName <- dir.FullName

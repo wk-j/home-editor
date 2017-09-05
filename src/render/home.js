@@ -16,6 +16,7 @@ export class HomeEditor {
             fontFamily: "Iosevka-Light",
             fontSize: "10pt"
         });
+        editor.container.style.lineHeight = 1.5;
     }
 
     getMode(file) {

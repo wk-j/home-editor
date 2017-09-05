@@ -9,3 +9,12 @@ html {
 body {
     padding:0;
 }
+
+.ui.list > .item .header:hover {
+    color: #017374;
+}
+
+div.item.h-file:hover {
+    color: #017374;
+    cursor: pointer;
+}

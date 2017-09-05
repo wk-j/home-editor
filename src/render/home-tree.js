@@ -16,8 +16,12 @@ export class HomeTree extends React.Component {
   }
 
   file(item) {
+    let fileStyle = {
+
+    }
+
     return (
-      <div className="item" key={item.fullName}>
+      <div className="item h-file" key={item.fullName}>
         <i className="spotify icon"></i>
         <div className="content">
           <div className="header">{item.name}</div>
@@ -28,7 +32,7 @@ export class HomeTree extends React.Component {
 
   folder(str) {
     return (
-      <div className="item" key={str.fullName}>
+      <div className="item h-folder" key={str.fullName}>
         <i className="cube icon"></i>
         <div className="content">
           <div className="header">{str.name}</div>
@@ -47,10 +51,8 @@ export class HomeTree extends React.Component {
   }
 
   render() {
-
     let str = this.getStructure();
     let path = this.getPath();
-
     let mainStyle = {
       overflowX: "scroll",
       overflowY: "scroll"

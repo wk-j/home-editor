@@ -9,7 +9,6 @@ open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Configuration
 open Microsoft.Extensions.DependencyInjection
 
-
 type Startup private () =
     new (configuration: IConfiguration) as this =
         Startup() then
@@ -22,7 +21,6 @@ type Startup private () =
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     member this.Configure(app: IApplicationBuilder, env: IHostingEnvironment) =
-        //app.UseMvc() |> ignore
         app.UseMvc(fun routes ->
             routes.MapRoute(
                 name = "default",

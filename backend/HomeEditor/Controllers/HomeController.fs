@@ -26,50 +26,37 @@ type Folder() =
 type HomeController () =
     inherit Controller()
 
-    let notMatchName(info: DirectoryInfo) = 
+    let notMatchDir(info: DirectoryInfo) = 
         let names = [
             ".git"
             "node_modules"
             "bin"
             "obj"
         ]
+        names.All <| Func<_,_>(info.Name.Contains >> not)
 
-        names.All(fun x -> info.Name.Contains(x) |> not)
-
+    let matchFileName (info: FileInfo) = 
+        let format = [
+            ".json"
+            ".js"
+            ".html"
+            ".ts"
+            ".cs"
+            ".fs"
+            ".fsproj"
+            ".css"
+        ]
+        format.Any <| Func<_,_>(info.Name.EndsWith)
+    
     let rec query (str: Folder) path = 
         let dir = DirectoryInfo path
         let dirs = 
             dir.GetDirectories() 
-            |> Array.filter(notMatchName)
-
-        let matchName (info: FileInfo) = 
-            let format = [
-                ".json"
-                ".js"
-                ".html"
-                ".ts"
-                ".cs"
-                ".fs"
-                ".fsproj"
-                ".css"
-            ]
-
-            format.Any(fun x -> info.Name.Contains(x))
-        
-        let notMatchFileName(info: FileInfo) = 
-            let names = [
-                ".map"
-                ".exe"
-                ".pdf"
-                ".DS_Store"
-            ]
-
-            names.All(fun x -> info.Name.Contains(x) |> not)
+            |> Array.filter(notMatchDir)
 
         let files  = 
             dir.GetFiles()
-            |> Array.filter(notMatchFileName)
-            |> Array.filter(matchName)
+            |> Array.filter(matchFileName)
 
         str.Folders <- 
             [ for item in dirs do
@@ -79,7 +66,6 @@ type HomeController () =
         str.Name <- dir.Name
         str.FullName <- dir.FullName
         str.Files <- files.Select(fun x -> File(Name = x.Name, FullName = x.FullName) ).ToList()
-
         (str)
 
     [<HttpPost>]

@@ -5,6 +5,7 @@ import { HomeEditor } from "./home";
 import { getCurrentDir, startBackend } from "./utility";
 import { observable, computed, action } from "mobx";
 import { getStructures } from "./api";
+import { setEditor } from "./global";
 
 import "semantic-ui-css/semantic.css";
 import "../style.css";
@@ -46,9 +47,8 @@ getStructures(model.path).then(rs => {
     model.structure = rs.data;
 });
 
-ReactDOM.render(<HomeTree model={model}/>, document.getElementById("home-tree"));
 
-let file = "/Users/wk/Source/home-editor/README.md";
 let home = new HomeEditor("home-editor");
-let editor = home.getEditor();
-home.editFile(editor, file);
+setEditor(home);
+
+ReactDOM.render(<HomeTree model={model}/>, document.getElementById("home-tree"));

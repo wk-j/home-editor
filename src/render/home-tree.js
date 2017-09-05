@@ -3,9 +3,12 @@ import * as path from "path";
 import { getFiles, getCurrentDir } from "./utility";
 import image from "../images/matthew.png";
 import { observer } from "mobx-react";
+import { getEditor } from "./global";
 
 @observer
 export class HomeTree extends React.Component {
+
+  editor = getEditor();
 
   getStructure() {
     return this.props.model.structure;
@@ -30,6 +33,8 @@ export class HomeTree extends React.Component {
 
   fileClick = (file) => (e) => {
     console.log(file.fullName);
+    this.editor.editFile(file.fullName);
+    document.title = file.fullName;
   };
 
   folderItem(str) {

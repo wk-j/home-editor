@@ -11,6 +11,11 @@ export class HomeEditor {
         this.setVim(editor);
         this.registerEvents(editor);
         this.editor = editor;
+
+        editor.setOptions({
+            fontFamily: "Iosevka-Light",
+            fontSize: "10pt"
+        });
     }
 
     getMode(file) {
@@ -23,6 +28,10 @@ export class HomeEditor {
             return Ace.require("ace/mode/javascript").Mode;
         else if (ext == "properties")
             return Ace.require("ace/mode/properties").Mode;
+        else if (ext == "json") 
+            return Ace.require("ace/mode/json").Mode;
+        else if (ext == "css") 
+            return Ace.require("ace/mode/css").Mode;
         else
             return Ace.require("ace/mode/markdown").Mode;
     }
@@ -31,7 +40,8 @@ export class HomeEditor {
         return this.editor;
     }
 
-    editFile(editor, file) {
+    editFile(file) {
+        var editor = this.editor;
         if (file) {
             this.file = file;
             let Mode = this.getMode(file);
@@ -39,11 +49,12 @@ export class HomeEditor {
             if (fs.existsSync(file)) {
                 var content = fs.readFileSync(file, "utf8");
                 this.setText(editor, content, new Mode());
-
                 let session = editor.getSession()
                 session.on("change", () => {
-                    this.setEditorTitle("*");
+                    //this.setEditorTitle("*");
                 });
+
+                editor.gotoLine(0);
             }
         }
     }
@@ -71,7 +82,8 @@ export class HomeEditor {
     }
 
     initialize(editor) {
-        editor.setTheme("ace/theme/gob");
+        // editor.setTheme("ace/theme/gob");
+        editor.setTheme("ace/theme/monokai");
         editor.setHighlightActiveLine(true);
         editor.setHighlightSelectedWord(true);
         editor.setShowInvisibles(false);

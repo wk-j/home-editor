@@ -10,8 +10,8 @@ body {
     padding:0;
 }
 
-.ui.list > .item .header:hover {
-    color: #017374;
+.ui.list > .item .h-file .header:hover {
+    color: rgb(238, 97, 221);
 }
 
 div.item.h-file:hover {

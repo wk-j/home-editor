@@ -15,14 +15,12 @@ export class HomeTree extends React.Component {
     return this.props.model.path;
   }
 
-  file(item) {
-    let fileStyle = {
-
-    }
-
+  fileItem(item) {
+    let fileStyle = { }
     return (
-      <div className="item h-file" key={item.fullName}>
-        <i className="spotify icon"></i>
+      <div className="item h-file" key={item.fullName} onClick={this.fileClick(item)}>
+        {/* <i className="file text outline icon"></i> */}
+        <i className="angle double right icon"></i>
         <div className="content">
           <div className="header">{item.name}</div>
         </div>
@@ -30,15 +28,20 @@ export class HomeTree extends React.Component {
     );
   }
 
-  folder(str) {
+  fileClick = (file) => (e) => {
+    console.log(file.fullName);
+  };
+
+  folderItem(str) {
     return (
       <div className="item h-folder" key={str.fullName}>
-        <i className="cube icon"></i>
+        <i className="lab icon"></i>
         <div className="content">
           <div className="header">{str.name}</div>
+          {/* <div className="description">{str.files.length} files {str.folders.length} folders</div> */}
           <div className="list">
-            {str.files.map(x => this.file(x))}
-            {str.folders.map(x => this.folder(x))}
+            {str.files.map(x => this.fileItem(x))}
+            {str.folders.map(x => this.folderItem(x))}
           </div>
         </div>
       </div>
@@ -65,13 +68,12 @@ export class HomeTree extends React.Component {
           <div className="content">
             <div className="header">{str.name}</div>
             <div className="list">
-              {str.files.map(x => this.file(x))}
-              {str.folders.map(x => this.folder(x))}
+              {str.files.map(x => this.fileItem(x))}
+              {str.folders.map(x => this.folderItem(x))}
             </div>
           </div>
         </div>
       </div>
     );
   }
-
 }

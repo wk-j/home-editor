@@ -75,7 +75,7 @@ export class HomeTree extends React.Component<Props, {}> {
     }
 
     return (
-      <div className="ui list">
+      <div className="ui list noselect">
         <div className="item">
           <i className="ravelry icon"></i>
           <div className="content">

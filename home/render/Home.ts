@@ -1,22 +1,28 @@
-import Ace, { EditSession, UndoManager } from 'ace';
-import { getCurrentDir, getArgs } from "./utility";
+var Ace = require("ace");
+
+import { getCurrentDir, getArgs } from "./Utility";
 
 const fs = require("fs");
 
 export class HomeEditor {
-    constructor(div) {
-        var editor = Ace.edit(div);
+    editor : any;
+    file: string;
+
+    constructor(private div) {
+        let editor = Ace.edit(div);
+
         this.initialize(editor);
         this.setEditorTitle("Home");
         this.setVim(editor);
         this.registerEvents(editor);
-        this.editor = editor;
 
         editor.setOptions({
             fontFamily: "Iosevka-Light",
             fontSize: "10pt"
         });
         editor.container.style.lineHeight = 1.5;
+
+        this.editor = editor;
     }
 
     getMode(file) {

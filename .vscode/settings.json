@@ -7,6 +7,8 @@
         "**/.DS_Store": true,
         "node_modules": true,
         "**/bin": true,
-        "**/obj": true
+        "**/obj": true,
+        "home/**/*.js": true,
+        "home/**/*.js.map": true
     }
 }

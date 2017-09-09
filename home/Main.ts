@@ -1,18 +1,22 @@
-
-"use strict";
-// Object.defineProperty(exports, "__esModule", { value: true });
 var electron = require("electron");
 var path = require("path");
 var url = require("url");
+
+import { remote } from "electron";
+
+console.log(remote);
+
 var win;
 function createWindow() {
     win = new electron.BrowserWindow({ 
         width: 1000, 
         height: 800,  
-        titleBarStyle: "visible" 
+        titleBarStyle: "default" 
     });
+
     win.loadURL(url.format({
-        pathname: path.join(__dirname, "../dist/index.html"),
+        //pathname: path.join(__dirname, "../index.html"),
+        pathname: "/Users/wk/Source/HomeEditor/dist/Index.html",
         protocol: "file:",
         slashes: true
     }));

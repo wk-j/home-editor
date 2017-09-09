@@ -5,8 +5,8 @@ module.exports = {
     devtool: "source-map",
     entry: 
     {
-        main: "./src/main.js",
-        render: "./src/render/index.js"
+        main: "./home/Main.ts",
+        render: "./home/render/Index.tsx"
     },
     output: {
         path: __dirname + "/dist",
@@ -14,23 +14,25 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.js$/,  
-                exclude: /node_modules/, 
-                loader: 'babel-loader'
-             },
-            { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' },
+            //{ test: /\.js$/,  exclude: /node_modules/, loader: 'babel-loader' },
+            //{ test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' },
+            //{ test: /\.(eot|woff|woff2|svg|ttf|png)([\?]?.*)$/, loader: "file-loader" },
+            //{ test: /\.css$/, loader: "style-loader!css-loader" }
+
+            { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
             { test: /\.(eot|woff|woff2|svg|ttf|png)([\?]?.*)$/, loader: "file-loader" },
             { test: /\.css$/, loader: "style-loader!css-loader" }
         ]
     },  
     plugins: [
         new CopyWebpackPlugin([{
-            from: "src/index.html",
-            to : "index.html"
+            from: "home/Index.html",
+            to : "Index.html"
         }])
     ],
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: [".ts", ".tsx", ".js"]
     },
     externals: {
         "ace": true

@@ -1,22 +1,19 @@
 import * as React from "react";
 import * as path from "path";
-import { getFiles, getCurrentDir } from "./utility";
-import image from "../images/matthew.png";
 import { observer } from "mobx-react";
-import { getEditor } from "./global";
+
+import { getCurrentDir } from "./Utility";
+import { getEditor } from "./Global";
+import { Structure } from "./Model";
+
+export interface Props {
+  structure: Structure; 
+}
 
 @observer
-export class HomeTree extends React.Component {
+export class HomeTree extends React.Component<Props, {}> {
 
   editor = getEditor();
-
-  getStructure() {
-    return this.props.model.structure;
-  }
-
-  getPath() {
-    return this.props.model.path;
-  }
 
   fileClick = (file) => (e) => {
     console.log(file.fullName);
@@ -71,14 +68,9 @@ export class HomeTree extends React.Component {
     );
   }
 
-  handleChange(event) {
-    var value = event.target.value;
-    this.props.model.setPath(value);
-  }
-
   render() {
-    let str = this.getStructure();
-    let path = this.getPath();
+    let str = this.props.structure;
+
     let mainStyle = {
       overflowX: "scroll",
       overflowY: "scroll"

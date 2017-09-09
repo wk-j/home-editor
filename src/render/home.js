@@ -83,7 +83,6 @@ export class HomeEditor {
     }
 
     initialize(editor) {
-        // editor.setTheme("ace/theme/gob");
         editor.setTheme("ace/theme/monokai");
         editor.setHighlightActiveLine(true);
         editor.setHighlightSelectedWord(true);

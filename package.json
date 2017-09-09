@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack --watch"
   },
-  "author": "",
+  "author": "wk-j",
   "license": "ISC",
   "devDependencies": {
     "@types/electron": "^1.6.10",
@@ -24,13 +24,11 @@
     "react-dom": "^15.6.1",
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.18.2",
-    "typescript": "^2.5.2"
-  },
-  "dependencies": {
-    "ace-builds": "^1.2.8",
-    "mobx": "^3.2.2",
-    "mobx-react": "^4.2.2",
+    "typescript": "^2.5.2",
     "semantic-ui-css": "^2.2.12",
     "shelljs": "^0.7.8"
+  },
+  "dependencies": {
+    "ace-builds": "^1.2.8"
   }
 }

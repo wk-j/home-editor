@@ -1,6 +1,5 @@
 import * as ReactDOM from "react-dom";
 import * as React from "react";
-import { observable, computed, action } from "mobx";
 
 import { getStructures } from "./Api";
 import { HomeTree } from "./HomeTree";

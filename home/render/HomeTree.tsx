@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as path from "path";
-import { observer } from "mobx-react";
 
 import { getCurrentDir } from "./Utility";
 import { getEditor } from "./Global";
@@ -10,7 +9,6 @@ export interface Props {
   structure: Structure; 
 }
 
-@observer
 export class HomeTree extends React.Component<Props, {}> {
 
   editor = getEditor();

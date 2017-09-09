@@ -10,8 +10,6 @@ import { setEditor } from "./global";
 import "semantic-ui-css/semantic.css";
 import "../style.css";
 
-startBackend();
-
 export class Structure {
     name = "";
     fullName = "";
@@ -23,11 +21,6 @@ export class Model {
     @observable
     files = []
 
-    @computed
-    get count() { 
-        return this.files.length;
-    }
-
     @observable
     structure = new Structure();
 
@@ -35,20 +28,36 @@ export class Model {
     path = getCurrentDir();
 
     setPath = action((path) => {
-        console.log(path);
         this.path = path;
     });
 }
 
-var model = new Model();
+export class App extends React.Component {
+    constructor() {
+        super();
 
-getStructures(model.path).then(rs => {
-    console.log("reload ...");
-    model.structure = rs.data;
-});
+        let model = new Model();
 
+        getStructures(model.path).then(rs => {
+            console.log("reload ...");
+            model.structure = rs.data;
+        });
+        
+        this.model = model;
+    }
 
-let home = new HomeEditor("home-editor");
-setEditor(home);
+    render() {
+        return(
+            <HomeTree model={this.model}/>
+        );
+    }
+}
 
-ReactDOM.render(<HomeTree model={model}/>, document.getElementById("home-tree"));
+function start() {
+    startBackend();
+    let home = new HomeEditor("home-editor");
+    setEditor(home);
+    ReactDOM.render(<App/>, document.getElementById("home-tree"));
+}
+
+start();

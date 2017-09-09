@@ -10,6 +10,12 @@ body {
     padding:0;
 }
 
+input {
+    border: 0;
+    /* background: #C2D8F3; */
+    color: #008052;
+}
+
 .ui.list > .item .h-file .header:hover {
     color: rgb(238, 97, 221);
 }

@@ -24,6 +24,18 @@ export class HomeTree extends React.Component {
     document.title = file.fullName;
   };
 
+  newFileItem(item) {
+    let fileStyle = {}
+    return (
+      <div className="item h-file" key={item.fullName}>
+        <i className="twitch icon"></i>
+        <div className="content">
+          <input type="text" value={item.name} />
+        </div>
+      </div>
+    );
+  }
+
   fileItem(item) {
     let fileStyle = {}
     return (
@@ -50,6 +62,7 @@ export class HomeTree extends React.Component {
             </span>
           </div>
           <div className="list">
+            {this.newFileItem({fullName: "", name: "fileName"})}
             {str.files.map(x => this.fileItem(x))}
             {str.folders.map(x => this.folderItem(x))}
           </div>

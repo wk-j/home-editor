@@ -7,16 +7,16 @@ import { setEditor } from "./Global";
 import { Structure } from "./Model";
 import { getCurrentDir, startBackend } from "./Utility";
 
-import { HomeEditor} from "./Home";
+import { HomeEditor } from "./Home";
 
 import "semantic-ui-css/semantic.css";
 import "../css/style.css";
 
-export interface Model { 
+export interface Model {
     structure: Structure
 }
 
-export class App extends React.Component<{},Model> {
+export class App extends React.Component<{}, Model> {
 
     constructor() {
         super();
@@ -34,7 +34,11 @@ export class App extends React.Component<{},Model> {
                 name: "Home",
                 fullName: "Home",
                 files: [],
-                folders: []
+                folders: [],
+                newFile: false,
+                newFileName: "NewFile",
+                newFolder: false,
+                newFolderName: "NewFolder"
             }
         })
     }

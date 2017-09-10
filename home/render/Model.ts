@@ -8,4 +8,10 @@ export interface Structure {
     fullName: string;
     files: FileItem [];
     folders: Structure[];
+
+    newFile: boolean;
+    newFileName: string;
+
+    newFolder: boolean;
+    newFolderName: string;
 }

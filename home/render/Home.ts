@@ -1,11 +1,25 @@
-var Ace = require("ace");
+const Ace = require("ace");
+const fs = require("fs");
 
 import { getCurrentDir, getArgs } from "./Utility";
 
-const fs = require("fs");
+interface Editor { 
+    setOptions: (any) => void;
+    getSession: () => any;
+    gotoLine: (number) => void;
+    commands: any;
+    getValue: () => any;
+    setValue: (string) => any;
+    setKeyboardHandler: (string) => any;
+    session: any;
+    setTheme: (string) => void ;
+    setHighlightActiveLine: (boolean) => void;
+    setHighlightSelectedWord: (boolean) => void;
+    setShowInvisibles: (boolean) => void
+}
 
 export class HomeEditor {
-    editor : any;
+    editor : Editor;
     file: string;
 
     constructor(private div) {
@@ -45,10 +59,6 @@ export class HomeEditor {
             return Ace.require("ace/mode/markdown").Mode;
     }
 
-    getEditor() {
-        return this.editor;
-    }
-
     editFile(file) {
         var editor = this.editor;
         if (file) {
@@ -68,18 +78,18 @@ export class HomeEditor {
         }
     }
 
-    registerEvents(editor) {
+    registerEvents(editor: Editor) {
         editor.commands.addCommand({
             name: 'save',
             bindKey: { win: 'Ctrl-S', mac: 'Command-S' },
             exec: (editor) => {
                 if(this.file) this.save(editor);
             },
-            readOnly: false // false if this command should not apply in readOnly mode
+            readOnly: false 
         });
     }
 
-    save(editor) {
+    save(editor: Editor) {
         let value = editor.getValue();
         fs.writeFile(this.file, value, (err) => {
             if(err) {
@@ -90,8 +100,10 @@ export class HomeEditor {
         })
     }
 
-    initialize(editor) {
+    initialize(editor: Editor) {
         editor.setTheme("ace/theme/monokai");
+        //editor.setTheme("ace/theme/tomorrow_night_bright");
+        //editor.setTheme("ace/theme/chaos");
         editor.setHighlightActiveLine(true);
         editor.setHighlightSelectedWord(true);
         editor.setShowInvisibles(false);
@@ -107,11 +119,11 @@ export class HomeEditor {
         }
     }
 
-    setVim(editor) {
+    setVim(editor: Editor) {
         editor.setKeyboardHandler("ace/keyboard/vim");
     }
 
-    setText(editor, text, mode) {
+    setText(editor: Editor, text, mode) {
         editor.session.setMode(mode);
         editor.setValue(text);
     }

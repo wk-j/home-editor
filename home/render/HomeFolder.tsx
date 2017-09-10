@@ -10,9 +10,6 @@ interface Props {
 }
 
 export class HomeFolder extends React.Component<Props, {}> {
-    fileClick= (file: FileItem) => (e: any) => {
-        this.props.onFileClick(file);
-    }
 
     render() {
         var str = this.props.structure;
@@ -29,8 +26,8 @@ export class HomeFolder extends React.Component<Props, {}> {
                     </div>
                     <div className="list">
                         <HomeNewFile file={{fullName: "", name: "fileName"}} />
-                        {str.files.map(x => <HomeFile file={x} onFileClick={this.fileClick} />)}
-                        {str.folders.map(x => <HomeFolder structure={x} onFileClick={this.fileClick} />)}
+                        {str.files.map(x => <HomeFile file={x} onFileClick={this.props.onFileClick} />)}
+                        {str.folders.map(x => <HomeFolder structure={x} onFileClick={this.props.onFileClick} />)}
                     </div>
                 </div>
             </div>

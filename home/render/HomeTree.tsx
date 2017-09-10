@@ -16,7 +16,7 @@ export class HomeTree extends React.Component<Props, {}> {
 
   editor = getEditor();
 
-  fileClick = (file: FileItem) => (e) => {
+  fileClick = (file: FileItem) => {
     console.log(file.fullName);
     this.editor.editFile(file.fullName);
     document.title = file.fullName;

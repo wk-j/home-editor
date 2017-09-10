@@ -7,7 +7,7 @@ import { setEditor } from "./Global";
 import { Structure } from "./Model";
 import { getCurrentDir, startBackend } from "./Utility";
 
-import { HomeEditor } from "./Home";
+import { HomeEditor } from "./HomeEditor";
 
 import "semantic-ui-css/semantic.css";
 import "../css/style.css";

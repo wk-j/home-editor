@@ -33,6 +33,8 @@ export class HomeEditor {
             return Ace.require("ace/mode/csharp").Mode;
         else if (ext == "js" || ext == "jsx")
             return Ace.require("ace/mode/javascript").Mode;
+        else if (ext == "ts" || ext == "tsx")
+            return Ace.require("ace/mode/typescript").Mode;
         else if (ext == "properties")
             return Ace.require("ace/mode/properties").Mode;
         else if (ext == "json") 

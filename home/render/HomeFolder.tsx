@@ -3,6 +3,7 @@ import * as React from "react";
 import { FileItem, Structure } from "./Model";
 import { HomeFile } from "./HomeFile";
 import { HomeNewFile } from "./HomeNewFile";
+import { HomeNewFolder } from "./HomeNewFolder";
 
 interface Props { 
     structure: Structure
@@ -13,6 +14,11 @@ export class HomeFolder extends React.Component<Props, {}> {
 
     render() {
         var str = this.props.structure;
+
+        let empty = (name) => { return { fullName: "",  name: name }; };
+
+        let newFile     = () => str.newFile     ? <HomeNewFile   file={ empty("fileName") } />   : "";
+        let newFolder   = () => str.newFolder   ? <HomeNewFolder file={ empty("folderName") } /> : "";
 
         return (
             <div className="item h-folder" key={str.fullName}>
@@ -25,7 +31,8 @@ export class HomeFolder extends React.Component<Props, {}> {
                         </span>
                     </div>
                     <div className="list">
-                        <HomeNewFile file={{fullName: "", name: "fileName"}} />
+                        {newFile}
+                        {newFolder}
                         {str.files.map(x => <HomeFile file={x} onFileClick={this.props.onFileClick} />)}
                         {str.folders.map(x => <HomeFolder structure={x} onFileClick={this.props.onFileClick} />)}
                     </div>

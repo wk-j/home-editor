@@ -1,3 +1,13 @@
+export interface NewFileItem {
+    name: string;
+    fullName: string;
+}
+
+export interface NewFolderItem { 
+    name: string;
+    fullName: string;
+}
+
 export interface FileItem {
     name: string;
     fullName: string;

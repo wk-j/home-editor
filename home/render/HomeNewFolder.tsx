@@ -1,13 +1,13 @@
 import * as React from "react";
 import { HomeFile } from "./HomeFile";
-import { FileItem, NewFileItem } from "./Model";
+import { FileItem, NewFolderItem } from "./Model";
 
 
 interface Props {
-    file: NewFileItem;
+    file: NewFolderItem
 }
 
-export class HomeNewFile extends React.Component<Props, {}> {
+export class HomeNewFolder extends React.Component<Props, {}> {
     render() {
         let fileStyle = {}
         let item = this.props.file;

@@ -12,7 +12,7 @@ export class HomeNewFile extends React.Component<Props, {}> {
         let fileStyle = {}
         let item = this.props.file;
         return (
-            <div className="item h-file" key={item.fullName}>
+            <div className="item h-file" key={item.location}>
                 <i className="twitch icon"></i>
                 <div className="content">
                     <input type="text" value={item.name} />

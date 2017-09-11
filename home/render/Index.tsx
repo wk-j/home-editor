@@ -4,7 +4,7 @@ import * as React from "react";
 import { getStructures } from "./Api";
 import { HomeTree } from "./HomeTree";
 import { setEditor } from "./Global";
-import { Structure } from "./Model";
+import { Structure, NewFileItem, NewFolderItem} from "./Model";
 import { getCurrentDir, startBackend } from "./Utility";
 
 import { HomeEditor } from "./HomeEditor";
@@ -13,7 +13,9 @@ import "semantic-ui-css/semantic.css";
 import "../css/style.css";
 
 export interface Model {
-    structure: Structure
+    structure: Structure;
+    newFile: NewFileItem;
+    newFolder: NewFolderItem;
 }
 
 export class App extends React.Component<{}, Model> {
@@ -35,17 +37,25 @@ export class App extends React.Component<{}, Model> {
                 fullName: "Home",
                 files: [],
                 folders: [],
-                newFile: false,
-                newFileName: "NewFile",
-                newFolder: false,
-                newFolderName: "NewFolder"
+            },
+            newFile: {
+                open: false,
+                name: "",
+                location: ""
             }
         })
     }
 
+    openNewFile = (newFile: NewFileItem) => {
+        console.log(newFile);
+        this.setState({
+            newFile: newFile
+        });
+    }
+
     render() {
         return (
-            <HomeTree structure={this.state.structure} />
+            <HomeTree structure={this.state.structure} onNewFile={this.openNewFile} newFile={this.state.newFile} />
         );
     }
 }

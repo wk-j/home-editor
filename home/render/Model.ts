@@ -1,11 +1,13 @@
 export interface NewFileItem {
+    open: boolean;
     name: string;
-    fullName: string;
+    location: string;
 }
 
 export interface NewFolderItem { 
+    open: boolean;
     name: string;
-    fullName: string;
+    location: string;
 }
 
 export interface FileItem {
@@ -18,10 +20,4 @@ export interface Structure {
     fullName: string;
     files: FileItem [];
     folders: Structure[];
-
-    newFile: boolean;
-    newFileName: string;
-
-    newFolder: boolean;
-    newFolderName: string;
 }

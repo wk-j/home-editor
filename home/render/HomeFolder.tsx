@@ -1,35 +1,27 @@
 import * as React from "react";
 
-import { FileItem, Structure, NewFileItem } from "./Model";
+import { FileItem, Structure, NewFileItem, ItemEvent } from "./Model";
 import { HomeFile } from "./HomeFile";
 import { HomeNewFile } from "./HomeNewFile";
 import { HomeNewFolder } from "./HomeNewFolder";
 
 interface Props { 
     structure: Structure
-    onFileClick: (FileItem) => void;
-    onNewFile: (NewFileItem) => void;
+    itemEvent: ItemEvent;
     newFile: NewFileItem;
 }
 
 export class HomeFolder extends React.Component<Props, {}> {
 
-    newFile = (item: NewFileItem) => {
-        this.props.onNewFile(item);
-    };
-
     newFileClick = (e: any) => {
-        this.props.onNewFile({
+        this.props.itemEvent.onNewFile({
             open: true,
-            fileName: "",
+            fileName: "NewFile",
             location: this.props.structure.fullName
         });
-        console.log(this.props.newFile);
     };
 
     showNewFile = () => {
-        console.log(this.props.newFile);
-        console.log(this.props.structure.fullName);
         if (this.props.newFile.open && this.props.newFile.location == this.props.structure.fullName) {
            return <HomeNewFile file={this.props.newFile} />
         } else 
@@ -51,13 +43,12 @@ export class HomeFolder extends React.Component<Props, {}> {
                     </div>
                     <div className="list">
                         {this.showNewFile()}
-                        {str.files.map(x => <HomeFile file={x} onFileClick={this.props.onFileClick} />)}
+                        {str.files.map(x => <HomeFile file={x} onFileClick={this.props.itemEvent.onFileClick} />)}
                         {str.folders.map(x => 
                             <HomeFolder 
                                 structure={x} 
-                                onFileClick={this.props.onFileClick} 
                                 newFile={this.props.newFile}
-                                onNewFile={this.newFile} />)}
+                                itemEvent={this.props.itemEvent} />)}
                     </div>
                 </div>
             </div>

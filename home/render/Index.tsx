@@ -4,9 +4,9 @@ import * as React from "react";
 import { getStructures } from "./Api";
 import { HomeTree } from "./HomeTree";
 import { setEditor } from "./Global";
-import { Structure, NewFileItem, NewFolderItem} from "./Model";
+import { Structure, NewFileItem, NewFolderItem, ItemEvent, FileItem } from "./Model";
 import { getCurrentDir, startBackend } from "./Utility";
-
+import { getEditor } from "./Global";
 import { HomeEditor } from "./HomeEditor";
 
 import "semantic-ui-css/semantic.css";
@@ -19,6 +19,7 @@ export interface Model {
 }
 
 export class App extends React.Component<{}, Model> {
+    editor = getEditor();
 
     constructor() {
         super();
@@ -28,6 +29,39 @@ export class App extends React.Component<{}, Model> {
                 structure: rs
             })
         });
+    }
+
+    fileClick = (file: FileItem) => {
+        this.editor.editFile(file.fullName);
+        document.title = file.fullName;
+    };
+
+
+    newFile = (newFile: NewFileItem) => {
+        console.log(newFile);
+        this.setState({
+            newFile: newFile
+        });
+    }
+
+    newFileConfirm = () => { 
+    }
+
+    newFileCancel = () => {
+        this.setState({
+            newFile: {
+                open: false,
+                name: "",
+                location: ""
+            }
+        });
+    }
+    
+    itemEvent: ItemEvent = {
+        onNewFile: this.newFile,
+        onNewFileCancel: this.newFileCancel,
+        onNewFileConfirm: this.newFileConfirm,
+        onFileClick: this.fileClick
     }
 
     async componentWillMount() {
@@ -40,22 +74,15 @@ export class App extends React.Component<{}, Model> {
             },
             newFile: {
                 open: false,
-                name: "",
+                name: "NewFile",
                 location: ""
             }
         })
     }
 
-    openNewFile = (newFile: NewFileItem) => {
-        console.log(newFile);
-        this.setState({
-            newFile: newFile
-        });
-    }
-
     render() {
         return (
-            <HomeTree structure={this.state.structure} onNewFile={this.openNewFile} newFile={this.state.newFile} />
+            <HomeTree structure={this.state.structure} itemEvent={this.itemEvent} newFile={this.state.newFile} />
         );
     }
 }

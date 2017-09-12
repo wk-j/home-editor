@@ -1,3 +1,4 @@
+
 export interface NewFileItem {
     open: boolean;
     name: string;
@@ -20,4 +21,11 @@ export interface Structure {
     fullName: string;
     files: FileItem [];
     folders: Structure[];
+}
+
+export interface ItemEvent {
+    onNewFile : (NewFileItem) => void;
+    onNewFileConfirm : () => void;
+    onNewFileCancel: () => void;
+    onFileClick: (FileItem) => void;
 }

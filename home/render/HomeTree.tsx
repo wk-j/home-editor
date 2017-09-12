@@ -3,30 +3,22 @@ import * as path from "path";
 
 import { getCurrentDir } from "./Utility";
 import { getEditor } from "./Global";
-import { Structure, FileItem, NewFileItem } from "./Model";
+import { Structure, FileItem, NewFileItem, ItemEvent } from "./Model";
 
 import { HomeFolder } from "./HomeFolder";
 import { HomeFile } from "./HomeFile";
 
 interface Props {
   structure: Structure; 
-  onNewFile: (NewFileItem) => void;
+  itemEvent: ItemEvent
   newFile: NewFileItem;
 }
 
 export class HomeTree extends React.Component<Props, {}> {
 
-  editor = getEditor();
-
-  fileClick = (file: FileItem) => {
-    console.log(file.fullName);
-    this.editor.editFile(file.fullName);
-    document.title = file.fullName;
-  };
-
-  newFile = (item: NewFileItem) => {
-    this.props.onNewFile(item);
-  };
+  fileClick = (file: FileItem) => { 
+    this.props.itemEvent
+  }
 
   render() {
     let str = this.props.structure;
@@ -47,8 +39,7 @@ export class HomeTree extends React.Component<Props, {}> {
               {str.folders.map(x => <HomeFolder 
                                   structure={x} 
                                   newFile={this.props.newFile}
-                                  onFileClick={this.fileClick} 
-                                  onNewFile={this.newFile}/>)}
+                                  itemEvent={this.props.itemEvent} />)}
             </div>
           </div>
         </div>

@@ -9,8 +9,18 @@ open System.IO
 open System.Collections.Generic
 open System.Linq
 
-type Requery = {
+type StructureRequest = {
     Path: string
+}
+
+type NewFileRequest = {
+    Path: string
+    Name: string
+}
+
+type Result = { 
+    Success: bool
+    Message: string
 }
 
 type File() = 
@@ -69,11 +79,37 @@ type HomeController () =
         (str)
 
     [<HttpPost>]
-    member this.GetStructures([<FromBody>] req: Requery) = 
+    member this.GetStructures([<FromBody>] req: StructureRequest) = 
         if req.Path = "/" then
-            Folder(Name="</>")
+            Folder(Name="<Root>")
         elif Directory.Exists req.Path then
             let str = Folder()
             query str req.Path
         else
             Folder(Name="<Empty>")
+
+    [<HttpPost>]
+    member this.CreateNewFile([<FromBody>] req: NewFileRequest) = 
+        let dir = req.Path
+        if Directory.Exists dir then
+            let full = Path.Combine(dir, req.Name)
+            if File.Exists full |> not then
+                File.WriteAllText(full, "")
+                { Success = true; Message = "" }
+            else
+                { Success = false; Message = "File already exist"}
+        else
+            { Success = false; Message = "Directory is not exist" }
+
+    [<HttpPost>]
+    member this.CreateNewFolder([<FromBody>] req: NewFileRequest) = 
+        let dir = req.Path 
+        if Directory.Exists dir then
+            let full = Path.Combine(dir, req.Name)
+            if Directory.Exists full |> not then
+                Directory.CreateDirectory full |> ignore
+                { Success = true; Message = "" }
+            else
+                { Success = false; Message = "Directory already exist" }
+        else
+            { Success = false; Message = "Directory is not exist" }

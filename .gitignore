@@ -5,3 +5,4 @@ bin
 obj
 home/**/*.js
 home/**/*.js.map
+tools

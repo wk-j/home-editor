@@ -2,7 +2,6 @@ import * as React from "react";
 import { HomeFile } from "./HomeFile";
 import { FileItem, NewFileItem } from "./Model";
 
-
 interface Props {
     file: NewFileItem;
 }

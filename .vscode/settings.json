@@ -9,6 +9,8 @@
         "**/bin": true,
         "**/obj": true,
         "home/**/*.js": true,
-        "home/**/*.js.map": true
+        "home/**/*.js.map": true,
+        "dist": true,
+        "tools": true
     }
 }

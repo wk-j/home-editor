@@ -43,7 +43,8 @@ input:focus{
  }
 
 .ui.list .list > .item.h-file-item:hover {
-    background: rgba(223, 122, 236, 0.42);
+    /* background: rgba(237, 218, 240, 0.42); */
+    color:#03860A;
     cursor: pointer;
  }
 

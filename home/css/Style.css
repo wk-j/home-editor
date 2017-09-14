@@ -12,8 +12,11 @@ body {
 
 input {
     border: 0;
-    /* background: #C2D8F3; */
-    color: #008052;
+    color: #101111;
+}
+
+input:focus{
+    outline: none;
 }
 
 .ui.list > .item .h-file .header:hover {

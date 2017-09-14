@@ -47,6 +47,8 @@ export class App extends React.Component<{}, Model> {
         this.setState({
             currentFile: file
         });
+        
+        this.newFileCancel();
     };
 
     newFile = (newFile: NewFileItem) => {

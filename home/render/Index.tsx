@@ -1,7 +1,12 @@
 import * as ReactDOM from "react-dom";
 import * as React from "react";
 
-import { getStructures } from "./Api";
+import { 
+    createNewFile,
+    createNewFolder,
+    getStructures 
+} from "./Api";
+
 import { HomeTree } from "./HomeTree";
 import { setEditor } from "./Global";
 import { Structure, NewFileItem, NewFolderItem, ItemEvent, FileItem } from "./Model";
@@ -16,6 +21,7 @@ export interface Model {
     structure: Structure;
     newFile: NewFileItem;
     newFolder: NewFolderItem;
+    currentFile: FileItem;
 }
 
 export class App extends React.Component<{}, Model> {
@@ -23,7 +29,10 @@ export class App extends React.Component<{}, Model> {
 
     constructor() {
         super();
+        this.reloadStructure();
+    }
 
+    reloadStructure() {
         getStructures("/Users/wk/Source/HomeEditor").then(rs => {
             this.setState({
                 structure: rs
@@ -34,17 +43,34 @@ export class App extends React.Component<{}, Model> {
     fileClick = (file: FileItem) => {
         this.editor.editFile(file.fullName);
         document.title = file.fullName;
+
+        this.setState({
+            currentFile: file
+        });
     };
 
-
     newFile = (newFile: NewFileItem) => {
-        console.log(newFile);
         this.setState({
             newFile: newFile
         });
     }
 
-    newFileConfirm = () => { 
+    newFileConfirm = async () => { 
+        await createNewFile({
+            location: this.state.newFile.location,
+            name: this.state.newFile.name,
+            open: false
+        });
+        await this.reloadStructure();
+
+        this.setState({
+            currentFile: {
+                name: this.state.newFile.name,
+                fullName : this.state.newFile.location + "/" + this.state.newFile.name
+            }
+        });
+
+        this.newFileCancel();
     }
 
     newFileCancel = () => {
@@ -76,13 +102,17 @@ export class App extends React.Component<{}, Model> {
                 open: false,
                 name: "NewFile",
                 location: ""
+            },
+            currentFile: {
+                fullName: "",
+                name: ""
             }
         })
     }
 
     render() {
         return (
-            <HomeTree structure={this.state.structure} itemEvent={this.itemEvent} newFile={this.state.newFile} />
+            <HomeTree structure={this.state.structure} itemEvent={this.itemEvent} newFile={this.state.newFile} selectedFile={this.state.currentFile} />
         );
     }
 }

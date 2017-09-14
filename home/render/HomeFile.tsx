@@ -4,6 +4,7 @@ import { FileItem } from "./Model";
 interface Props {
     file: FileItem;
     onFileClick: (FileItem) => void;
+    selectedFile: FileItem;
 }
 
 export class HomeFile extends React.Component<Props, {}> {
@@ -14,13 +15,14 @@ export class HomeFile extends React.Component<Props, {}> {
 
     render() {
         let props = this.props;
-        return(
-            <div className="item h-file" key={props.file.fullName} onClick={this.onClick(props.file)}>
-            <i className="twitch icon"></i>
-            <div className="content">
-              <div className="header">{props.file.name}</div>
+        let style = this.props.selectedFile.fullName == this.props.file.fullName ? "item h-file-item h-selected-file" : "item h-file-item"
+        return (
+            <div className={style} key={props.file.fullName} onClick={this.onClick(props.file)}>
+                <i className="twitch icon"></i>
+                <div className="content">
+                    <div className="header">{props.file.name}</div>
+                </div>
             </div>
-          </div>
         );
     }
 }

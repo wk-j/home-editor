@@ -6,7 +6,8 @@ import { HomeNewFile } from "./HomeNewFile";
 import { HomeNewFolder } from "./HomeNewFolder";
 
 interface Props { 
-    structure: Structure
+    selectedFile: FileItem;
+    structure: Structure;
     itemEvent: ItemEvent;
     newFile: NewFileItem;
 }
@@ -23,7 +24,7 @@ export class HomeFolder extends React.Component<Props, {}> {
 
     showNewFile = () => {
         if (this.props.newFile.open && this.props.newFile.location == this.props.structure.fullName) {
-           return <HomeNewFile file={this.props.newFile} />
+           return <HomeNewFile file={this.props.newFile} itemEvent={this.props.itemEvent} />
         } else 
            return "";
     };
@@ -38,14 +39,15 @@ export class HomeFolder extends React.Component<Props, {}> {
                     <div className="header">{str.name}
                         <span style={{ paddingLeft: "5px" }}>
                             {/* <i className="ui slack icon"></i> */}
-                            <i className="ui twitch icon" onClick={this.newFileClick}></i>
+                            <i className="ui radio icon h-pointer" onClick={this.newFileClick}></i>
                         </span>
                     </div>
                     <div className="list">
                         {this.showNewFile()}
-                        {str.files.map(x => <HomeFile file={x} onFileClick={this.props.itemEvent.onFileClick} />)}
+                        {str.files.map(x => <HomeFile file={x} onFileClick={this.props.itemEvent.onFileClick} selectedFile={this.props.selectedFile} />)}
                         {str.folders.map(x => 
                             <HomeFolder 
+                                selectedFile={this.props.selectedFile}
                                 structure={x} 
                                 newFile={this.props.newFile}
                                 itemEvent={this.props.itemEvent} />)}

@@ -12,13 +12,10 @@ interface Props {
   structure: Structure; 
   itemEvent: ItemEvent
   newFile: NewFileItem;
+  selectedFile: FileItem;
 }
 
 export class HomeTree extends React.Component<Props, {}> {
-
-  fileClick = (file: FileItem) => { 
-    this.props.itemEvent
-  }
 
   render() {
     let str = this.props.structure;
@@ -31,13 +28,14 @@ export class HomeTree extends React.Component<Props, {}> {
     return (
       <div className="ui list noselect">
         <div className="item">
-          <i className="ravelry icon"></i>
+          <i className="cube icon"></i>
           <div className="content">
             <div className="header">{str.name}</div>
             <div className="list">
-              {str.files.map(x => <HomeFile file={x} onFileClick={this.fileClick} />  )}
+              {str.files.map(x => <HomeFile file={x} onFileClick={this.props.itemEvent.onFileClick} selectedFile={this.props.selectedFile} />  )}
               {str.folders.map(x => <HomeFolder 
                                   structure={x} 
+                                  selectedFile={this.props.selectedFile}
                                   newFile={this.props.newFile}
                                   itemEvent={this.props.itemEvent} />)}
             </div>

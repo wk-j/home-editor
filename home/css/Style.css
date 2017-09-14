@@ -20,11 +20,6 @@ input {
     color: rgb(238, 97, 221);
 }
 
-div.item.h-file:hover {
-    color: #017374;
-    cursor: pointer;
-}
-
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
       -webkit-user-select: none; /* Safari */
@@ -33,4 +28,22 @@ div.item.h-file:hover {
           -ms-user-select: none; /* Internet Explorer/Edge */
               user-select: none; /* Non-prefixed version, currently
                                     supported by Chrome and Opera */
+ }
+
+ .ui.list .list > .item.h-file-item {
+     padding: 3 5 3 5;
+     border-radius: 5px;
+ }
+
+ .ui.list .list > .item.h-file-item.h-selected-file {
+    background: rgba(223, 122, 236, 0.42);
+ }
+
+.ui.list .list > .item.h-file-item:hover {
+    background: rgba(223, 122, 236, 0.42);
+    cursor: pointer;
+ }
+
+.h-pointer {
+     cursor: pointer;
  }

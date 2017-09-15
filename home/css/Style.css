@@ -51,3 +51,12 @@ input:focus{
 .h-pointer {
      cursor: pointer;
  }
+
+.ui.grid > .row > .column.h-home-editor-container {
+    padding: 0;
+}
+
+.ui.grid > .row > .column.h-home-explorer-container {
+    /* overflow: scroll; */
+    height: 100%;
+}

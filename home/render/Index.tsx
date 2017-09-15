@@ -1,5 +1,6 @@
 import * as ReactDOM from "react-dom";
 import * as React from "react";
+import { HomeMenuBar } from "./HomeMenuBar";
 
 import { 
     createNewFile,
@@ -113,17 +114,28 @@ export class App extends React.Component<{}, Model> {
     }
 
     render() {
+        let style: any = {
+            position: "relative"
+        };
+
         return (
-            <HomeTree structure={this.state.structure} itemEvent={this.itemEvent} newFile={this.state.newFile} selectedFile={this.state.currentFile} />
+            <div className="h-explorer" style={style}>
+                <HomeMenuBar />
+                <HomeTree 
+                    structure={this.state.structure} 
+                    itemEvent={this.itemEvent} 
+                    newFile={this.state.newFile} 
+                    selectedFile={this.state.currentFile} />
+            </div>
         );
     }
 }
 
 function start() {
     startBackend();
-    let home = new HomeEditor("home-editor");
+    let home = new HomeEditor("q-home-editor");
     setEditor(home);
-    ReactDOM.render(<App />, document.getElementById("home-tree"));
+    ReactDOM.render(<App />, document.getElementById("q-home-explorer"));
 }
 
 start();

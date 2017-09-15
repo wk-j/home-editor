@@ -20,13 +20,14 @@ export class HomeTree extends React.Component<Props, {}> {
   render() {
     let str = this.props.structure;
 
-    let mainStyle = {
-      overflowX: "scroll",
-      overflowY: "scroll"
+    let style: any = {
+      position: "relative",
+      overflow: "scroll",
+      height: "100%"
     }
 
     return (
-      <div className="ui list noselect">
+      <div className="ui list noselect h-home-tree" style={style}>
         <div className="item">
           <i className="cube icon"></i>
           <div className="content">

@@ -28,3 +28,9 @@ export async function createNewFolder(info: NewFolderItem) {
     });
     return req.data as any;
 }
+
+export async function renameFile(info: { newPath: string, originalPath: string }) {
+    let api = `${host}/api/home/renameFile`;
+    let req = await axios.post(api, info);
+    return req.data as any;
+}

@@ -22,9 +22,23 @@ export class HomeFolder extends React.Component<Props, {}> {
         });
     };
 
+    newFileChange = (value: string) => {
+        this.props.itemEvent.onNewFile({
+            location: this.props.structure.fullName,
+            name: value, 
+            open: true
+        });
+    }
+
     showNewFile = () => {
+        let event = this.props.itemEvent;
+
         if (this.props.newFile.open && this.props.newFile.location == this.props.structure.fullName) {
-           return <HomeNewFile file={this.props.newFile} itemEvent={this.props.itemEvent} />
+           return <HomeNewFile 
+                     value={this.props.newFile.name} 
+                     onCancel={event.onNewFileCancel} 
+                     onChange={this.newFileChange}
+                     onConfirm={event.onNewFileConfirm} />
         } else 
            return "";
     };
@@ -48,9 +62,10 @@ export class HomeFolder extends React.Component<Props, {}> {
                     </div>
                     <div className="list">
                         {this.showNewFile()}
-                        {str.files.map(x => <HomeFile file={x} onFileClick={this.props.itemEvent.onFileClick} selectedFile={this.props.selectedFile} />)}
+                        {str.files.map(x => <HomeFile key={x.fullName} file={x} onFileClick={this.props.itemEvent.onFileClick} selectedFile={this.props.selectedFile} />)}
                         {str.folders.map(x => 
                             <HomeFolder 
+                                key={x.fullName}
                                 selectedFile={this.props.selectedFile}
                                 structure={x} 
                                 newFile={this.props.newFile}

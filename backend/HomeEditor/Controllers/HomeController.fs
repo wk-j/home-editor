@@ -18,6 +18,11 @@ type NewFileRequest = {
     Name: string
 }
 
+type RenameRequest = {
+    OriginalPath: string
+    NewPath: string
+}
+
 type Result = { 
     Success: bool
     Message: string
@@ -26,10 +31,12 @@ type Result = {
 type File() = 
     member val Name = "" with set,get
     member val FullName = "" with set,get
+    member val Location = "" with set,get
 
 type Folder() = 
     member val Name = "" with set,get
     member val FullName = "" with set,get
+    member val Location = "" with set,get
     member val Folders = Enumerable.Empty<Folder>() with set,get
     member val Files = Enumerable.Empty<File>()  with set,get
 
@@ -75,7 +82,8 @@ type HomeController () =
 
         str.Name <- dir.Name
         str.FullName <- dir.FullName
-        str.Files <- files.Select(fun x -> File(Name = x.Name, FullName = x.FullName) ).ToList()
+        str.Location <- dir.Parent.FullName
+        str.Files <- files.Select(fun x -> File(Name = x.Name, FullName = x.FullName, Location = x.DirectoryName)).ToList()
         (str)
 
     [<HttpPost>]
@@ -113,3 +121,13 @@ type HomeController () =
                 { Success = false; Message = "Directory already exist" }
         else
             { Success = false; Message = "Directory is not exist" }
+
+    [<HttpPost>]
+    member this.RenameFile([<FromBody>] req: RenameRequest) = 
+        let src = File.Exists req.OriginalPath
+        let des = File.Exists req.NewPath
+        
+        if src && (des |> not) then
+            { Success = false; Message = "" }
+        else
+            { Success = true; Message = "" }

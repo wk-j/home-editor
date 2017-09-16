@@ -22,8 +22,8 @@ export class HomeFile extends React.Component<Props, {}> {
         };
 
         return (
-            <div className={cs} style={style} key={props.file.fullName} onClick={this.onClick(props.file)}>
-                <i className="code icon"></i>
+            <div className={cs} style={style} onClick={this.onClick(props.file)}>
+                <i className="moon icon"></i>
                 <div className="content">
                     <div className="header">{props.file.name}</div>
                 </div>

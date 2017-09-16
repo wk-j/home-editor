@@ -3,8 +3,10 @@ import { HomeFile } from "./HomeFile";
 import { FileItem, NewFileItem, ItemEvent } from "./Model";
 
 interface Props {
-    file: NewFileItem;
-    itemEvent: ItemEvent;
+    value: string;
+    onConfirm: () => void;
+    onChange: (string) => void;
+    onCancel: () => void;
 }
 
 export class HomeNewFile extends React.Component<Props, {}> {
@@ -12,23 +14,19 @@ export class HomeNewFile extends React.Component<Props, {}> {
     keyUp = (evt: any) => {
         var evt = evt || window.event;
         if (evt.keyCode == 27) {
-            this.props.itemEvent.onNewFileCancel();
+            this.props.onCancel();
         }
     };
 
     keyPress = (e: any) => {
         if(e.charCode == 13) {
-            this.props.itemEvent.onNewFileConfirm();
+            this.props.onConfirm();
         }
     }
 
     change = (e: React.ChangeEvent<HTMLInputElement>) => {
         var value = e.target.value;
-        this.props.itemEvent.onNewFile({
-            open: true,
-            location: this.props.file.location,
-            name: value
-        });
+        this.props.onChange(value);
     }
 
     render() {
@@ -36,13 +34,12 @@ export class HomeNewFile extends React.Component<Props, {}> {
             padding: "0 3 0 3"
         };
 
-        let item = this.props.file;
         return (
-            <div className="item h-file-item" style={style} key={item.location}>
+            <div className="item h-file-item" style={style}>
                 <i className="code icon"></i>
                 <div className="content">
                     <input type="text" 
-                        value={item.name} 
+                        value={this.props.value} 
                         onKeyPress={this.keyPress}  
                         onKeyUp={this.keyUp}
                         onChange={this.change} autoFocus/>

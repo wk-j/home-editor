@@ -35,12 +35,20 @@ export class HomeTree extends React.Component<Props, {}> {
           <div className="content">
             <div className="header">{str.name}</div>
             <div className="list">
-              {str.files.map(x => <HomeFile file={x} onFileClick={this.props.itemEvent.onFileClick} selectedFile={this.props.selectedFile} />  )}
-              {str.folders.map(x => <HomeFolder 
-                                  structure={x} 
-                                  selectedFile={this.props.selectedFile}
-                                  newFile={this.props.newFile}
-                                  itemEvent={this.props.itemEvent} />)}
+              {str.files.map(x => 
+                 <HomeFile file={x} 
+                  key={x.fullName}
+                  onFileClick={this.props.itemEvent.onFileClick}  
+                  selectedFile={this.props.selectedFile} /> )}
+
+              {str.folders.map(x => 
+                <HomeFolder 
+                  key={x.fullName}
+                  structure={x} 
+                  selectedFile={this.props.selectedFile}
+                  newFile={this.props.newFile}
+                  itemEvent={this.props.itemEvent} />)}
+
             </div>
           </div>
         </div>

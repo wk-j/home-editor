@@ -14,11 +14,13 @@ export interface NewFolderItem {
 export interface FileItem {
     name: string;
     fullName: string;
+    location: string;
 }
 
 export interface Structure {
     name: string;
     fullName: string;
+    location: string;
     files: FileItem [];
     folders: Structure[];
 }

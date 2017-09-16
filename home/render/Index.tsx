@@ -69,7 +69,8 @@ export class App extends React.Component<{}, Model> {
         this.setState({
             currentFile: {
                 name: this.state.newFile.name,
-                fullName : this.state.newFile.location + "/" + this.state.newFile.name
+                fullName : this.state.newFile.location + "/" + this.state.newFile.name,
+                location : this.state.newFile.location
             }
         });
 
@@ -98,6 +99,7 @@ export class App extends React.Component<{}, Model> {
             structure: {
                 name: "Home",
                 fullName: "Home",
+                location: "",
                 files: [],
                 folders: [],
             },
@@ -108,7 +110,8 @@ export class App extends React.Component<{}, Model> {
             },
             currentFile: {
                 fullName: "",
-                name: ""
+                name: "",
+                location: ""
             }
         })
     }

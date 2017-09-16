@@ -5,7 +5,8 @@ import { HomeMenuBar } from "./HomeMenuBar";
 import {
     createNewFile,
     getStructures,
-    renameFile
+    renameFile,
+    deleteFile
 } from "./Api";
 
 import { HomeTree } from "./HomeTree";
@@ -31,6 +32,18 @@ export class App extends React.Component<{}, Model> {
     constructor() {
         super();
         this.reloadStructure();
+    }
+
+    emptyFile: FileItem = {
+        fullName: "",
+        location: "",
+        name: ""
+    }
+
+    emptyRename: RenameItem = {
+        open: false,
+        originalPath: "",
+        newName: ""
     }
 
     reloadStructure() {
@@ -124,12 +137,16 @@ export class App extends React.Component<{}, Model> {
         await this.reloadStructure();
 
         this.setState({
-            renameItem: {
-                open: false,
-                originalPath: "",
-                newName: ""
-            }
+            renameItem: this.emptyRename        
         });
+    };
+
+    delete = async (file: FileItem)  => {
+        await deleteFile({ path: file.fullName });
+        this.setState({
+            currentFile: this.emptyFile
+        })
+        await this.reloadStructure();
     };
 
     itemEvent: ItemEvent = {
@@ -137,10 +154,10 @@ export class App extends React.Component<{}, Model> {
         onNewItemCancel: this.newFileCancel,
         onNewItemConfirm: this.newFileConfirm,
         onOpenFile: this.openFile,
-
         onRenameItem: this.renameItem,
         onRenameItemCancel: this.renameItemCancel,
-        onRenameItemConfirm: this.renameItemConfirm
+        onRenameItemConfirm: this.renameItemConfirm,
+        onDelete: this.delete
     }
 
     async componentWillMount() {
@@ -157,16 +174,8 @@ export class App extends React.Component<{}, Model> {
                 name: "NewFile",
                 location: ""
             },
-            renameItem: {
-                open: false,
-                originalPath: "",
-                newName: ""
-            },
-            currentFile: {
-                fullName: "",
-                name: "",
-                location: ""
-            }
+            renameItem: this.emptyRename,
+            currentFile: this.emptyFile
         })
     }
 
@@ -177,7 +186,7 @@ export class App extends React.Component<{}, Model> {
 
         return (
             <div className="h-home-explorer" style={style}>
-                <HomeMenuBar />
+                <HomeMenuBar currentFile={this.state.currentFile} itemEvent={this.itemEvent} />
                 <HomeTree
                     structure={this.state.structure}
                     itemEvent={this.itemEvent}

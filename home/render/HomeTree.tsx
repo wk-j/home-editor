@@ -4,7 +4,6 @@ import * as path from "path";
 import { getCurrentDir } from "./Utility";
 import { getEditor } from "./Global";
 import { Structure, FileItem, NewItem, ItemEvent, RenameItem } from "./Model";
-
 import { HomeFolder } from "./HomeFolder";
 import { HomeFile } from "./HomeFile";
 
@@ -24,7 +23,6 @@ export class HomeTree extends React.Component<Props, {}> {
     let style: any = {
       position: "relative",
       overflow: "scroll",
-      //height: "100%"
       margin: "10 0 10 0",
       height: "calc(100% - 38px)"
     }

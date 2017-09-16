@@ -32,6 +32,8 @@ export interface ItemEvent {
 
     onOpenFile: (FileItem) => void;
 
+    onDelete: (FileItem) => void
+
     onRenameItem : (RenameItem) => void;
     onRenameItemConfirm : () => void;
     onRenameItemCancel : () => void;

@@ -35,3 +35,9 @@ export async function renameFile(info: { newPath: string, originalPath: string }
     let req = await axios.post(api, info);
     return req.data as any;
 }
+
+export async function deleteFile(info: { path: string}) {
+    let api = `${host}/api/home/deleteFile`;
+    let req = await axios.post(api, info);
+    return req.data as any;
+}

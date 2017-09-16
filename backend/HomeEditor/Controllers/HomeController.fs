@@ -23,6 +23,10 @@ type RenameRequest = {
     NewPath: string
 }
 
+type DeleteRequest = {
+    Path: string
+}
+
 type Result = { 
     Success: bool
     Message: string
@@ -122,6 +126,7 @@ type HomeController () =
         else
             { Success = false; Message = "Directory is not exist" }
 
+
     [<HttpPost>]
     member this.RenameFile([<FromBody>] req: RenameRequest) = 
         let src = File.Exists req.OriginalPath
@@ -129,6 +134,16 @@ type HomeController () =
         
         if src && (des |> not) then
             File.Move(req.OriginalPath, req.NewPath)
+            { Success = true; Message = "" }
+        else
+            { Success = false; Message = "" }
+
+    [<HttpPost>]
+    member this.DeleteFile([<FromBody>] req: DeleteRequest) = 
+        let path = req.Path
+        let exist = File.Exists path 
+        if exist then
+            File.Delete path
             { Success = true; Message = "" }
         else
             { Success = false; Message = "" }

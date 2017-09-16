@@ -128,6 +128,7 @@ type HomeController () =
         let des = File.Exists req.NewPath
         
         if src && (des |> not) then
-            { Success = false; Message = "" }
-        else
+            File.Move(req.OriginalPath, req.NewPath)
             { Success = true; Message = "" }
+        else
+            { Success = false; Message = "" }

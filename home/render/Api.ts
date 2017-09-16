@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Structure, NewFileItem, NewFolderItem } from "./Model";
+import { Structure, NewItem } from "./Model";
 
 let host = "http://localhost:5052";
 
@@ -11,7 +11,7 @@ export async function getStructures(path) {
     return req.data as Structure;
 }
 
-export async function createNewFile(info: NewFileItem) {
+export async function createNewFile(info: NewItem) {
     let api = `${host}/api/home/createNewFile`;
     let req = await axios.post(api, {
         path : info.location,
@@ -20,6 +20,7 @@ export async function createNewFile(info: NewFileItem) {
     return req.data as any;
 }
 
+/*
 export async function createNewFolder(info: NewFolderItem) {
     let api = `${host}/api/home/createNewFolder`;
     let req = await axios.post(api, {
@@ -27,7 +28,7 @@ export async function createNewFolder(info: NewFolderItem) {
         name: info.name
     });
     return req.data as any;
-}
+}*/
 
 export async function renameFile(info: { newPath: string, originalPath: string }) {
     let api = `${host}/api/home/renameFile`;

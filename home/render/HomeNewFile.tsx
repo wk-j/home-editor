@@ -1,6 +1,6 @@
 import * as React from "react";
 import { HomeFile } from "./HomeFile";
-import { FileItem, NewFileItem, ItemEvent } from "./Model";
+import { FileItem, NewItem, ItemEvent } from "./Model";
 
 interface Props {
     value: string;
@@ -29,6 +29,10 @@ export class HomeNewFile extends React.Component<Props, {}> {
         this.props.onChange(value);
     }
 
+    blur = (e: any) => {
+        this.props.onCancel();
+    }
+
     render() {
         let style = {
             padding: "0 3 0 3"
@@ -40,6 +44,7 @@ export class HomeNewFile extends React.Component<Props, {}> {
                 <div className="content">
                     <input type="text" 
                         value={this.props.value} 
+                        onBlur={this.blur}
                         onKeyPress={this.keyPress}  
                         onKeyUp={this.keyUp}
                         onChange={this.change} autoFocus/>

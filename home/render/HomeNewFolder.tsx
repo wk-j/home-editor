@@ -1,9 +1,9 @@
 import * as React from "react";
 import { HomeFile } from "./HomeFile";
-import { FileItem, NewFolderItem } from "./Model";
+import { FileItem } from "./Model";
 
 interface Props {
-    file: NewFolderItem
+    file: any;
 }
 
 export class HomeNewFolder extends React.Component<Props, {}> {

@@ -1,14 +1,14 @@
 
-export interface NewFileItem {
-    open: boolean;
+export interface NewItem {
+    open: boolean,
     name: string;
     location: string;
 }
 
-export interface NewFolderItem { 
-    open: boolean;
-    name: string;
-    location: string;
+export interface RenameItem { 
+    open: boolean,
+    originalPath: string,
+    newName: string
 }
 
 export interface FileItem {
@@ -26,8 +26,13 @@ export interface Structure {
 }
 
 export interface ItemEvent {
-    onNewFile : (NewFileItem) => void;
-    onNewFileConfirm : () => void;
-    onNewFileCancel: () => void;
-    onFileClick: (FileItem) => void;
+    onNewItem : (NewFileItem) => void;
+    onNewItemConfirm : () => void;
+    onNewItemCancel: () => void;
+
+    onOpenFile: (FileItem) => void;
+
+    onRenameItem : (RenameItem) => void;
+    onRenameItemConfirm : () => void;
+    onRenameItemCancel : () => void;
 }

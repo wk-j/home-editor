@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FileItem, Structure, NewFileItem, ItemEvent } from "./Model";
+import { FileItem, Structure, NewItem, ItemEvent, RenameItem } from "./Model";
 import { HomeFile } from "./HomeFile";
 import { HomeNewFile } from "./HomeNewFile";
 import { HomeNewFolder } from "./HomeNewFolder";
@@ -9,38 +9,70 @@ interface Props {
     selectedFile: FileItem;
     structure: Structure;
     itemEvent: ItemEvent;
-    newFile: NewFileItem;
+    newItem: NewItem;
+    renameItem: RenameItem;
 }
 
 export class HomeFolder extends React.Component<Props, {}> {
 
     newFileClick = (e: any) => {
-        this.props.itemEvent.onNewFile({
+        this.props.itemEvent.onNewItem({
             open: true,
             fileName: "NewFile",
             location: this.props.structure.fullName
         });
     };
 
-    newFileChange = (value: string) => {
-        this.props.itemEvent.onNewFile({
+    newItemChange = (value: string) => {
+        this.props.itemEvent.onNewItem({
             location: this.props.structure.fullName,
             name: value, 
-            open: true
+            open: true, 
         });
     }
+
+    renameItemChange = (value: string) => {
+        this.props.itemEvent.onRenameItem({
+            originalPath: this.props.selectedFile.fullName,
+            open: true,
+            newName: value
+        });
+    }
+
+    renameFile = (file: FileItem) => (e: any) => {
+    };
 
     showNewFile = () => {
         let event = this.props.itemEvent;
 
-        if (this.props.newFile.open && this.props.newFile.location == this.props.structure.fullName) {
+        if (this.props.newItem.open && this.props.newItem.location == this.props.structure.fullName) {
            return <HomeNewFile 
-                     value={this.props.newFile.name} 
-                     onCancel={event.onNewFileCancel} 
-                     onChange={this.newFileChange}
-                     onConfirm={event.onNewFileConfirm} />
+                     value={this.props.newItem.name} 
+                     onCancel={event.onNewItemCancel} 
+                     onChange={this.newItemChange}
+                     onConfirm={event.onNewItemConfirm} />
         } else 
            return "";
+    };
+
+    showFile = (x: FileItem) => {
+        let event = this.props.itemEvent;
+
+        if (this.props.renameItem.open && this.props.renameItem.originalPath == x.fullName) {
+           return <HomeNewFile 
+                     key={x.fullName}
+                     value={this.props.renameItem.newName} 
+                     onCancel={event.onRenameItemCancel} 
+                     onChange={this.renameItemChange}
+                     onConfirm={event.onRenameItemConfirm} />
+        }
+        else {
+            return <HomeFile
+                    key={x.fullName} 
+                    file={x} 
+                    onFileClick={this.props.itemEvent.onOpenFile} 
+                    selectedFile={this.props.selectedFile} />
+        }
     };
 
     render() {
@@ -56,19 +88,21 @@ export class HomeFolder extends React.Component<Props, {}> {
                 <div className="content">
                     <div className="header">{str.name}
                         <span style={{ paddingLeft: "5px" }}>
-                            {/* <i className="ui slack icon"></i> */}
                             <i className="ui angle down icon h-pointer" onClick={this.newFileClick}></i>
                         </span>
                     </div>
                     <div className="list">
                         {this.showNewFile()}
-                        {str.files.map(x => <HomeFile key={x.fullName} file={x} onFileClick={this.props.itemEvent.onFileClick} selectedFile={this.props.selectedFile} />)}
+
+                        {str.files.map(this.showFile)}
+
                         {str.folders.map(x => 
                             <HomeFolder 
                                 key={x.fullName}
                                 selectedFile={this.props.selectedFile}
                                 structure={x} 
-                                newFile={this.props.newFile}
+                                renameItem={this.props.renameItem}
+                                newItem={this.props.newItem}
                                 itemEvent={this.props.itemEvent} />)}
                     </div>
                 </div>

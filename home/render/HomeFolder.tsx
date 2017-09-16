@@ -94,8 +94,6 @@ export class HomeFolder extends React.Component<Props, {}> {
                     <div className="list">
                         {this.showNewFile()}
 
-                        {str.files.map(this.showFile)}
-
                         {str.folders.map(x => 
                             <HomeFolder 
                                 key={x.fullName}
@@ -104,6 +102,9 @@ export class HomeFolder extends React.Component<Props, {}> {
                                 renameItem={this.props.renameItem}
                                 newItem={this.props.newItem}
                                 itemEvent={this.props.itemEvent} />)}
+
+                        {str.files.map(this.showFile)}
+
                     </div>
                 </div>
             </div>

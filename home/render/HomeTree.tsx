@@ -42,35 +42,5 @@ export class HomeTree extends React.Component<Props, {}> {
           </div>
       </div>
     );
-
-    /*
-    return (
-      <div className="ui list noselect h-home-tree" style={style}>
-        <div className="item">
-          <i className="cube icon"></i>
-          <div className="content">
-            <div className="header">{str.name}</div>
-            <div className="list">
-              {str.files.map(x => 
-                 <HomeFile file={x} 
-                  key={x.fullName}
-                  onFileClick={this.props.itemEvent.onOpenFile}  
-                  selectedFile={this.props.selectedFile} /> )}
-
-              {str.folders.map(x => 
-                <HomeFolder 
-                  key={x.fullName}
-                  structure={x} 
-                  selectedFile={this.props.selectedFile}
-                  newItem={this.props.newItem}
-                  renameItem={this.props.renameItem}
-                  itemEvent={this.props.itemEvent} />)}
-
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-    */
   }
 }

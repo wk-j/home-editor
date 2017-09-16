@@ -44,7 +44,7 @@ export class HomeMenuBar extends React.Component<Props, {}> {
             <div className="h-menu-bar" style={this.style}>
                 <div className="ui vertical icon menu" style={this.listStyle}>
                     <a className="item" style={this.itemStyle}>
-                        <i className="gamepad icon"></i>
+                        <i className="folder open icon"></i>
                     </a>
                     <a className={cls} style={this.itemStyle} onClick={this.delete}>
                         <i className="delete icon"></i>

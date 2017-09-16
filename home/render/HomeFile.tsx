@@ -15,10 +15,15 @@ export class HomeFile extends React.Component<Props, {}> {
 
     render() {
         let props = this.props;
-        let style = this.props.selectedFile.fullName == this.props.file.fullName ? "item h-file-item h-selected-file" : "item h-file-item"
+        let cs = this.props.selectedFile.fullName == this.props.file.fullName ? "item h-file-item h-selected-file" : "item h-file-item"
+        let style:any = {
+            padding: "2 4 2 4",
+            borderRadius: "3px"
+        };
+
         return (
-            <div className={style} key={props.file.fullName} onClick={this.onClick(props.file)}>
-                <i className="twitch icon"></i>
+            <div className={cs} style={style} key={props.file.fullName} onClick={this.onClick(props.file)}>
+                <i className="code icon"></i>
                 <div className="content">
                     <div className="header">{props.file.name}</div>
                 </div>

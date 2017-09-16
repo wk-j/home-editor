@@ -119,7 +119,7 @@ export class App extends React.Component<{}, Model> {
         };
 
         return (
-            <div className="h-explorer" style={style}>
+            <div className="h-home-explorer" style={style}>
                 <HomeMenuBar />
                 <HomeTree 
                     structure={this.state.structure} 

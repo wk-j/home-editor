@@ -34,8 +34,8 @@ input:focus{
  }
 
  .ui.list .list > .item.h-file-item {
-     padding: 3 5 3 5;
-     border-radius: 5px;
+     /* padding: 3 5 3 5; */
+     /* border-radius: 5px; */
  }
 
  .ui.list .list > .item.h-file-item.h-selected-file {

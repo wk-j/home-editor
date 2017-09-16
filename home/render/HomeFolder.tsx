@@ -30,16 +30,20 @@ export class HomeFolder extends React.Component<Props, {}> {
     };
 
     render() {
-        var str = this.props.structure;
+        let str = this.props.structure;
+        let style:any = {
+            padding: "2 4 2 4",
+            borderRadius: "3px"
+        };
 
         return (
-            <div className="item h-folder" key={str.fullName}>
+            <div className="item h-folder" style={style} key={str.fullName}>
                 <i className="windows icon"></i>
                 <div className="content">
                     <div className="header">{str.name}
                         <span style={{ paddingLeft: "5px" }}>
                             {/* <i className="ui slack icon"></i> */}
-                            <i className="ui radio icon h-pointer" onClick={this.newFileClick}></i>
+                            <i className="ui angle down icon h-pointer" onClick={this.newFileClick}></i>
                         </span>
                     </div>
                     <div className="list">

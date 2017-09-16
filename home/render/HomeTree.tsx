@@ -23,7 +23,9 @@ export class HomeTree extends React.Component<Props, {}> {
     let style: any = {
       position: "relative",
       overflow: "scroll",
-      height: "100%"
+      //height: "100%"
+      margin: "10 0 10 0",
+      height: "calc(100% - 38px)"
     }
 
     return (

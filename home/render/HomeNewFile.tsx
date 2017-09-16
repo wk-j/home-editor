@@ -9,8 +9,15 @@ interface Props {
 
 export class HomeNewFile extends React.Component<Props, {}> {
 
+    keyUp = (evt: any) => {
+        var evt = evt || window.event;
+        if (evt.keyCode == 27) {
+            this.props.itemEvent.onNewFileCancel();
+        }
+    };
+
     keyPress = (e: any) => {
-        if(e.charCode == 13){
+        if(e.charCode == 13) {
             this.props.itemEvent.onNewFileConfirm();
         }
     }
@@ -25,13 +32,20 @@ export class HomeNewFile extends React.Component<Props, {}> {
     }
 
     render() {
-        let fileStyle = {}
+        let style = {
+            padding: "0 3 0 3"
+        };
+
         let item = this.props.file;
         return (
-            <div className="item h-file-item" key={item.location}>
-                <i className="twitch icon"></i>
+            <div className="item h-file-item" style={style} key={item.location}>
+                <i className="code icon"></i>
                 <div className="content">
-                    <input type="text" value={item.name} onKeyPress={this.keyPress}  onChange={this.change} autoFocus/>
+                    <input type="text" 
+                        value={item.name} 
+                        onKeyPress={this.keyPress}  
+                        onKeyUp={this.keyUp}
+                        onChange={this.change} autoFocus/>
                 </div>
             </div>
         );

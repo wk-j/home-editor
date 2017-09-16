@@ -33,6 +33,10 @@ export class HomeNewFile extends React.Component<Props, {}> {
         this.props.onCancel();
     }
 
+    focus = (e: any) => {
+        e.target.select();
+    }
+
     render() {
         let style = {
             padding: "0 3 0 3"
@@ -47,6 +51,7 @@ export class HomeNewFile extends React.Component<Props, {}> {
                         onBlur={this.blur}
                         onKeyPress={this.keyPress}  
                         onKeyUp={this.keyUp}
+                        onFocus={this.focus}
                         onChange={this.change} autoFocus/>
                 </div>
             </div>

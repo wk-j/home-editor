@@ -8,7 +8,7 @@ import { HomeFolder } from "./HomeFolder";
 import { HomeFile } from "./HomeFile";
 
 interface Props {
-  structure: Structure; 
+  structure: Structure;
   itemEvent: ItemEvent
   newItem: NewItem;
   renameItem: RenameItem;
@@ -27,6 +27,23 @@ export class HomeTree extends React.Component<Props, {}> {
       height: "calc(100% - 38px)"
     }
 
+    return (
+      <div className="ui list noselect h-home-tree" style={style}>
+        <div className="item">
+            <div className="list">
+              <HomeFolder
+                key={str.fullName}
+                structure={str}
+                selectedFile={this.props.selectedFile}
+                newItem={this.props.newItem}
+                renameItem={this.props.renameItem}
+                itemEvent={this.props.itemEvent} />
+            </div>
+          </div>
+      </div>
+    );
+
+    /*
     return (
       <div className="ui list noselect h-home-tree" style={style}>
         <div className="item">
@@ -54,5 +71,6 @@ export class HomeTree extends React.Component<Props, {}> {
         </div>
       </div>
     );
+    */
   }
 }

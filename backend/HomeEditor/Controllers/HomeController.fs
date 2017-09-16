@@ -62,6 +62,7 @@ type HomeController () =
             ".js"
             ".html"
             ".ts"
+            ".tsx"
             ".cs"
             ".fs"
             ".fsproj"

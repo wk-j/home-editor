@@ -13,6 +13,8 @@ import "brace/theme/github";
 import "brace/theme/twilight";
 import "brace/theme/tomorrow_night_bright";
 
+import "brace/keybinding/vim"
+
 interface Props {
     onChange: (string) => void;
     value: string
@@ -21,20 +23,22 @@ interface Props {
 
 export class HEditor extends React.Component<Props, {}> {
 
-    style: any = {
-
-    }
-
     render() {
         return (
             <AceEditor
+                fontSize={14}
                 width="100%"
                 height="100%"
+                keyboardHandler="vim"
                 value={this.props.value}
                 mode={this.props.mode}
                 theme="twilight"
                 onChange={this.props.onChange}
                 name="home-editor"
+                setOptions={{
+                   fontFamily: "Iosevka",
+                   cursorStyle: "smooth"
+                }}
                 editorProps={
                     {
                          $blockScrolling: true

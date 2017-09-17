@@ -32,10 +32,13 @@ export interface ItemEvent {
     onNewItemCancel: () => void;
 
     onOpenFile: (FileItem) => void;
+    onOpenFolder: (Structure) => void;
 
     onDelete: (FileItem) => void
 
     onRenameItem : (RenameItem) => void;
     onRenameItemConfirm : () => void;
     onRenameItemCancel : () => void;
+
+    isCollapse: (string) => boolean;
 }

@@ -8,6 +8,9 @@ import "brace/mode/markdown";
 import "brace/mode/css";
 import "brace/mode/javascript";
 import "brace/mode/typescript";
+import "brace/mode/json";
+import "brace/mode/xml";
+import "brace/mode/ocaml";
 
 import "brace/theme/github";
 import "brace/theme/twilight";

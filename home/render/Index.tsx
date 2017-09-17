@@ -18,6 +18,7 @@ export interface Model {
     currentFile: FileItem;
     currentEdtiorValue: string;
     onEditorValueChange: (string) => void;
+    collapses : string[]; 
 }
 
 export class App extends React.Component<{}, Model> {
@@ -151,15 +152,37 @@ export class App extends React.Component<{}, Model> {
         });
     }
 
+    openFolder = (str: Structure) => {
+
+        console.log(str.fullName);
+
+        let cs = this.state.collapses;
+        if (cs.indexOf(str.fullName) != -1) {
+            this.setState({
+                collapses: cs.filter(x => x != str.fullName)
+            });
+        } else {
+            this.setState({
+                collapses: cs.concat(str.fullName)
+            });
+        }
+    }
+
+    isCollapse = (path: string) => {
+        return this.state.collapses.indexOf(path) != -1;
+    };
+
     itemEvent: ItemEvent = {
         onNewItem: this.newFile,
         onNewItemCancel: this.newFileCancel,
         onNewItemConfirm: this.newFileConfirm,
-        onOpenFile: this.openFile,
         onRenameItem: this.renameItem,
         onRenameItemCancel: this.renameItemCancel,
         onRenameItemConfirm: this.renameItemConfirm,
-        onDelete: this.delete
+        onDelete: this.delete,
+        onOpenFile: this.openFile,
+        onOpenFolder: this.openFolder,
+        isCollapse: this.isCollapse
     }
 
     async componentWillMount() {
@@ -179,7 +202,8 @@ export class App extends React.Component<{}, Model> {
             renameItem: this.emptyRename,
             currentFile: this.emptyFile,
             currentEdtiorValue: "",
-            onEditorValueChange: this.change
+            onEditorValueChange: this.change,
+            collapses: []
         })
     }
 
@@ -202,6 +226,7 @@ export class App extends React.Component<{}, Model> {
                             <HomeMenuBar currentFile={this.state.currentFile} itemEvent={this.itemEvent} />
                             <HomeTree
                                 structure={this.state.structure}
+                                collapses={this.state.collapses}
                                 itemEvent={this.itemEvent}
                                 renameItem={this.state.renameItem}
                                 newItem={this.state.newItem}
@@ -209,24 +234,6 @@ export class App extends React.Component<{}, Model> {
                         </div>
                     </div>
                 </div>
-            </div>
-        );
-    }
-
-    render_() {
-        let style: any = {
-            position: "relative"
-        };
-
-        return (
-            <div className="h-home-explorer" style={style}>
-                <HomeMenuBar currentFile={this.state.currentFile} itemEvent={this.itemEvent} />
-                <HomeTree
-                    structure={this.state.structure}
-                    itemEvent={this.itemEvent}
-                    renameItem={this.state.renameItem}
-                    newItem={this.state.newItem}
-                    selectedFile={this.state.currentFile} />
             </div>
         );
     }

@@ -10,6 +10,7 @@ interface Props {
 export class HomeFile extends React.Component<Props, {}> {
 
     onClick = (item: FileItem) => (e: any) => {
+        e.stopPropagation();
         this.props.onFileClick(item);
     }
 

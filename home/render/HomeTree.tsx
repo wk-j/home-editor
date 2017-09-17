@@ -2,7 +2,6 @@ import * as React from "react";
 import * as path from "path";
 
 import { getCurrentDir } from "./Utility";
-import { getEditor } from "./Global";
 import { Structure, FileItem, NewItem, ItemEvent, RenameItem } from "./Model";
 import { HomeFolder } from "./HomeFolder";
 import { HomeFile } from "./HomeFile";
@@ -13,6 +12,7 @@ interface Props {
   newItem: NewItem;
   renameItem: RenameItem;
   selectedFile: FileItem;
+  collapses: string []
 }
 
 export class HomeTree extends React.Component<Props, {}> {
@@ -26,6 +26,8 @@ export class HomeTree extends React.Component<Props, {}> {
       margin: "10 0 10 0",
       height: "calc(100% - 38px)"
     }
+
+    let collapse = this.props.collapses.indexOf(str.fullName) != -1;
 
     return (
       <div className="ui list noselect h-home-tree" style={style}>

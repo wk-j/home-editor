@@ -93,6 +93,9 @@ type HomeController () =
         | ".css" -> "css"
         | ".json" -> "json"
         | ".html" -> "html"
+        | ".cs" | ".csx"  -> "csharp"
+        | ".fs" | ".fsx" -> "ocaml"
+        | ".xml" | ".fsproj" | ".csproj" -> "xml"
         | ".ts" | ".tsx" -> "typescript"
         | _ -> "markdown"
     

@@ -1,20 +1,12 @@
 import * as ReactDOM from "react-dom";
 import * as React from "react";
 import { HomeMenuBar } from "./HomeMenuBar";
-
-import {
-    createNewFile,
-    getStructures,
-    renameFile,
-    deleteFile
-} from "./Api";
-
+import { getFileContent } from "./Api";
+import { createNewFile, getStructures, renameFile, deleteFile } from "./Api";
 import { HomeTree } from "./HomeTree";
-import { setEditor } from "./Global";
 import { Structure, NewItem, ItemEvent, FileItem, RenameItem } from "./Model";
-import { getCurrentDir, startBackend } from "./Utility";
-import { getEditor } from "./Global";
-import { HomeEditor } from "./HomeEditor";
+import { getCurrentDir, startBackend, getMode } from "./Utility";
+import { HEditor } from "./HEditor";
 
 import "semantic-ui-css/semantic.css";
 import "../css/style.css";
@@ -24,10 +16,11 @@ export interface Model {
     newItem: NewItem;
     renameItem: RenameItem;
     currentFile: FileItem;
+    currentEdtiorValue: string;
+    onEditorValueChange: (string) => void;
 }
 
 export class App extends React.Component<{}, Model> {
-    editor = getEditor();
 
     constructor() {
         super();
@@ -37,7 +30,8 @@ export class App extends React.Component<{}, Model> {
     emptyFile: FileItem = {
         fullName: "",
         location: "",
-        name: ""
+        name: "",
+        mode: "javascript"
     }
 
     emptyRename: RenameItem = {
@@ -54,7 +48,7 @@ export class App extends React.Component<{}, Model> {
         });
     }
 
-    openFile = (file: FileItem) => {
+    openFile = async (file: FileItem) => {
 
         if (file.fullName == this.state.currentFile.fullName) {
             this.setState({
@@ -66,12 +60,13 @@ export class App extends React.Component<{}, Model> {
             });
 
         } else {
-
-            this.editor.editFile(file.fullName);
+            let content = await getFileContent({path: file.fullName});
+            let value = content.value;
             document.title = file.fullName;
 
             this.setState({
-                currentFile: file
+                currentFile: file,
+                currentEdtiorValue: value
             });
 
             this.newFileCancel();
@@ -96,7 +91,8 @@ export class App extends React.Component<{}, Model> {
             currentFile: {
                 name: this.state.newItem.name,
                 fullName: this.state.newItem.location + "/" + this.state.newItem.name,
-                location: this.state.newItem.location
+                location: this.state.newItem.location,
+                mode: getMode(this.state.newItem.name)
             }
         });
 
@@ -137,17 +133,23 @@ export class App extends React.Component<{}, Model> {
         await this.reloadStructure();
 
         this.setState({
-            renameItem: this.emptyRename        
+            renameItem: this.emptyRename
         });
     };
 
-    delete = async (file: FileItem)  => {
+    delete = async (file: FileItem) => {
         await deleteFile({ path: file.fullName });
         this.setState({
             currentFile: this.emptyFile
         })
         await this.reloadStructure();
     };
+
+    change = (value: string) => {
+        this.setState({
+            currentEdtiorValue: value
+        });
+    }
 
     itemEvent: ItemEvent = {
         onNewItem: this.newFile,
@@ -175,11 +177,43 @@ export class App extends React.Component<{}, Model> {
                 location: ""
             },
             renameItem: this.emptyRename,
-            currentFile: this.emptyFile
+            currentFile: this.emptyFile,
+            currentEdtiorValue: "",
+            onEditorValueChange: this.change
         })
     }
 
     render() {
+        let style: any = {
+            position: "relative"
+        };
+
+        return (
+            <div className="ui internally celled grid">
+                <div className="row">
+                    <div className="twelve wide column" style={{padding:0}}>
+                        <HEditor 
+                            mode={this.state.currentFile.mode}
+                            value={this.state.currentEdtiorValue} 
+                            onChange={this.state.onEditorValueChange}/>
+                    </div>
+                    <div className="four wide column" style={{padding:"0 10 0 10"}}>
+                        <div className="h-home-explorer" style={style}>
+                            <HomeMenuBar currentFile={this.state.currentFile} itemEvent={this.itemEvent} />
+                            <HomeTree
+                                structure={this.state.structure}
+                                itemEvent={this.itemEvent}
+                                renameItem={this.state.renameItem}
+                                newItem={this.state.newItem}
+                                selectedFile={this.state.currentFile} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    render_() {
         let style: any = {
             position: "relative"
         };
@@ -198,11 +232,5 @@ export class App extends React.Component<{}, Model> {
     }
 }
 
-function start() {
-    startBackend();
-    let home = new HomeEditor("q-home-editor");
-    setEditor(home);
-    ReactDOM.render(<App />, document.getElementById("q-home-explorer"));
-}
-
-start();
+startBackend();
+ReactDOM.render(<App />, document.getElementById("app"));

@@ -13,6 +13,7 @@ export interface RenameItem {
 
 export interface FileItem {
     name: string;
+    mode: string;
     fullName: string;
     location: string;
 }

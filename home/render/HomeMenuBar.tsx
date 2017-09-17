@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import { FileItem, ItemEvent } from "./Model";
 import { remote } from "electron"
 
@@ -45,6 +44,9 @@ export class HomeMenuBar extends React.Component<Props, {}> {
                 <div className="ui vertical icon menu" style={this.listStyle}>
                     <a className="item" style={this.itemStyle}>
                         <i className="folder open icon"></i>
+                    </a>
+                    <a className="item" style={this.itemStyle}>
+                        <i className="save icon"></i>
                     </a>
                     <a className={cls} style={this.itemStyle} onClick={this.delete}>
                         <i className="delete icon"></i>

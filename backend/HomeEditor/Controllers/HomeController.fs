@@ -27,6 +27,20 @@ type DeleteRequest = {
     Path: string
 }
 
+type SaveRequest = {
+    Path: string
+    Content: string
+}
+
+type FileContentRequest = {
+    Path: string
+}
+
+type FileContentResult = {
+    Success: bool
+    Value: string
+}
+
 type Result = { 
     Success: bool
     Message: string
@@ -36,6 +50,7 @@ type File() =
     member val Name = "" with set,get
     member val FullName = "" with set,get
     member val Location = "" with set,get
+    member val Mode = "" with set,get
 
 type Folder() = 
     member val Name = "" with set,get
@@ -70,6 +85,16 @@ type HomeController () =
             ".css"
         ]
         format.Any <| Func<_,_>(info.Name.EndsWith)
+
+    let findMode (name: String) = 
+        match Path.GetExtension name with
+        | ".js" | ".jsx" -> "javascript"
+        | ".md" -> "markdown"
+        | ".css" -> "css"
+        | ".json" -> "json"
+        | ".html" -> "html"
+        | ".ts" | ".tsx" -> "typescript"
+        | _ -> "markdown"
     
     let rec query (str: Folder) path = 
         let dir = DirectoryInfo path
@@ -89,7 +114,13 @@ type HomeController () =
         str.Name <- dir.Name
         str.FullName <- dir.FullName
         str.Location <- dir.Parent.FullName
-        str.Files <- files.Select(fun x -> File(Name = x.Name, FullName = x.FullName, Location = x.DirectoryName)).ToList()
+        str.Files <- 
+            files.Select(fun x -> 
+                File(
+                     Name = x.Name, 
+                     FullName = x.FullName, 
+                     Mode = findMode x.Name,
+                     Location = x.DirectoryName)).ToList()
         (str)
 
     [<HttpPost>]
@@ -149,3 +180,23 @@ type HomeController () =
             { Success = true; Message = "" }
         else
             { Success = false; Message = "" }
+
+    [<HttpPost>]
+    member this.SaveFileContent([<FromBody>] req: SaveRequest) = 
+        let path = req.Path 
+        let exist = File.Exists path
+        if exist then
+            File.WriteAllText(path, req.Content)
+            { Success = true; Message = "File not exist" }
+        else
+            { Success = false; Message = "" }
+
+    [<HttpPost>]
+    member this.GetFileContent([<FromBody>] req: FileContentRequest) = 
+        let path = req.Path
+        let exist = File.Exists path
+        if exist then
+            let text = File.ReadAllText path
+            { Success = true; Value = text }
+        else
+            { Success = false; Value = "" }

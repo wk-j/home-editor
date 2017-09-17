@@ -41,3 +41,15 @@ export async function deleteFile(info: { path: string}) {
     let req = await axios.post(api, info);
     return req.data as any;
 }
+
+export async function saveFileContent(info: { path: string, content: string}) {
+    let api = `${host}/api/home/saveFileContent`;
+    let req = await axios.post(api, info);
+    return req.data as any;
+}
+
+export async function getFileContent(info: { path: string}) {
+    let api = `${host}/api/home/getFileContent`;
+    let req = await axios.post(api, info);
+    return req.data as { success: boolean, value: string };
+}

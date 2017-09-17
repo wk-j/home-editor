@@ -30,6 +30,6 @@ module.exports = {
         extensions: [".ts", ".tsx", ".js"]
     },
     externals: {
-        "ace": true
+        //"ace": true
     }
 };

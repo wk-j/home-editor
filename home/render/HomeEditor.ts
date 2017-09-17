@@ -3,7 +3,7 @@ const fs = require("fs");
 
 import { getCurrentDir, getArgs } from "./Utility";
 
-interface Editor { 
+export interface Editor { 
     setOptions: (any) => void;
     getSession: () => any;
     gotoLine: (number) => void;

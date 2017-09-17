@@ -14,6 +14,21 @@ export function startBackend() {
     });
 }
 
+export function getMode(name: string) { 
+    let modes = [
+        { ext: ".js", mode: "javascript "},
+        { ext: ".md", mode: "markdown"},
+        { ext: ".css", mode: "css"},
+        { ext: ".html", mode: "html"},
+    ];
+
+    let rs = modes.filter(x => name.indexOf(x.ext) > 0);
+    if (rs.length > 0) return rs[0].mode
+    else {
+        "javascript"
+    };
+}
+
 export function getArgs() {
     var args = process.argv.splice(process.execArgv.length + 2);
     return args;

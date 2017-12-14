@@ -40,7 +40,8 @@ export class HEditor extends React.Component<Props, {}> {
                 name="home-editor"
                 setOptions={{
                    fontFamily: "Iosevka",
-                   cursorStyle: "smooth"
+                   cursorStyle: "smooth",
+                   fontSize: "13"
                 }}
                 editorProps={
                     {

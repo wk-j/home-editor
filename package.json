@@ -18,7 +18,7 @@
     "axios": "^0.19.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.11",
-    "electron": "^5.0.7",
+    "electron": "^6.0.0",
     "file-loader": "^0.11.2",
     "photonkit": "^0.1.2",
     "ramda": "^0.26.1",
